@@ -16,7 +16,7 @@ class ViewController:
 
     def __init__(self):
         self.log_reg_win = LoginAndRegister()
-        self.__user_win = GuestWindow()
+        self.__user_win = None
 
     def show_login(self):
         self.log_reg_win.switch_window.connect(self.show_user_win)
