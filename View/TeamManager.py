@@ -1,10 +1,11 @@
 from PyQt5 import QtWidgets, QtCore
+from View.UserWindow import UserWindow
 
 
-class TeamManagerWindow(QtWidgets.QWidget):
+class TeamManagerWindow(UserWindow):
 
-    def __init__(self, text):
-        QtWidgets.QWidget.__init__(self)
+    def __init__(self):
+        super().__init__()
 
         self.setWindowTitle('Window Two')
 
