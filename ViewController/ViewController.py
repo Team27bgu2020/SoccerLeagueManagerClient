@@ -15,7 +15,7 @@ from View.UnionRepresentor import UnionRepresentorWindow
 class ViewController:
 
     def __init__(self):
-        self.log_reg_win = LoginAndRegister()
+        self.log_reg_win = LoginAndRegister(self)
         self.__user_win = None
 
     def show_login(self):
@@ -44,24 +44,24 @@ class ViewController:
         self.__log_reg_win = win
 
 
-def get_user_win(user_type):
+def get_user_win(user_type, controller):
     if user_type == 'Guest':
-        return GuestWindow()
+        return GuestWindow(controller)
     elif user_type == 'Coach':
-        return CoachWindow()
+        return CoachWindow(controller)
     elif user_type == 'Fan':
-        return FanWindow()
+        return FanWindow(controller)
     elif user_type == 'Player':
-        return PlayerWindow()
+        return PlayerWindow(controller)
     elif user_type == 'Referee':
-        return RefereeWindow()
+        return RefereeWindow(controller)
     elif user_type == 'SystemAdmin':
-        return SystemAdminWindow()
+        return SystemAdminWindow(controller)
     elif user_type == 'TeamManager':
-        return TeamManagerWindow()
+        return TeamManagerWindow(controller)
     elif user_type == 'TeamOwner':
-        return TeamOwnerWindow()
+        return TeamOwnerWindow(controller)
     elif user_type == 'UnionRepresentor':
-        return UnionRepresentorWindow()
+        return UnionRepresentorWindow(controller)
     else:
         raise ValueError

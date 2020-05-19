@@ -6,8 +6,9 @@ class LoginAndRegister(QWidget):
 
     switch_window = QtCore.pyqtSignal()
 
-    def __init__(self):
+    def __init__(self, controller):
         QWidget.__init__(self)
+        self.controller = controller
         self.setWindowTitle('Login')
 
         layout = QtWidgets.QGridLayout()
@@ -21,3 +22,11 @@ class LoginAndRegister(QWidget):
 
     def login(self):
         self.switch_window.emit()
+
+    @property
+    def controller(self):
+        return self.__controller
+
+    @controller.setter
+    def controller(self, con):
+        self.__controller = con

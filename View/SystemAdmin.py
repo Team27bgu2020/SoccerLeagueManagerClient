@@ -4,8 +4,8 @@ from View.UserWindow import UserWindow
 
 class SystemAdminWindow(UserWindow):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, controller):
+        super().__init__(controller)
 
         self.setWindowTitle('Window Two')
 
