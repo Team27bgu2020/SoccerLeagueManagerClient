@@ -16,7 +16,7 @@ class ViewController:
 
     def __init__(self):
         self.log_reg_win = LoginAndRegister(self)
-        self.__user_win = None
+        self.__user_win = PlayerWindow(self)
 
     def show_login(self):
         self.log_reg_win.switch_window.connect(self.show_user_win)
@@ -33,7 +33,7 @@ class ViewController:
     @user_win.setter
     def user_win(self, user_type):
         if self.user_win is None:
-            self.__user_win = get_user_win(user_type)
+            self.__user_win = get_user_win(user_type, self)
 
     @property
     def log_reg_win(self):
