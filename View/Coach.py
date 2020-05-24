@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
 from View.UserWindow import UserWindow
 
 
@@ -28,11 +28,9 @@ class CoachWindow(UserWindow):
 
         self.update_info_btn.setSizePolicy(sizePolicy)
         self.update_info_btn.setFont(font)
-        self.update_info_btn.clicked.connect(self.close)
 
         self.upload_content_btn = QtWidgets.QPushButton(Form)
         self.upload_content_btn.setGeometry(QtCore.QRect(200, 230, 160, 70))
-        self.upload_content_btn.clicked.connect(self.close)
 
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(250, 50, 300, 60))
@@ -50,9 +48,21 @@ class CoachWindow(UserWindow):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+        self.connect_buttons()
+
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.update_info_btn.setText(_translate("Form", "Update Inormation"))
         self.upload_content_btn.setText(_translate("Form", "Upload Site Content"))
-        self.label.setText(_translate("Form", "Hello Player"))
+        self.label.setText(_translate("Form", "Hello Coach"))
+
+    def connect_buttons(self):
+        self.upload_content_btn.clicked.connect(self.upload_content)
+        self.update_info_btn.clicked.connect(self.update_info)
+
+    def upload_content(self):
+        raise NotImplementedError
+
+    def update_info(self):
+        raise NotImplementedError
