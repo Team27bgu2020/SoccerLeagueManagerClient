@@ -40,7 +40,7 @@ class LoginAndRegister(QWidget):
         self.loginBtn.setGeometry(QtCore.QRect(30, 110, 151, 23))
         self.loginBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.loginBtn.setObjectName("loginBtn")
-        # self.loginBtn.clicked.connect(self.verifyLogin)
+
         # register form, label and btn
         self.registerLabel = QtWidgets.QLabel(self)
         self.registerLabel.setGeometry(QtCore.QRect(330, 30, 91, 31))
@@ -116,6 +116,8 @@ class LoginAndRegister(QWidget):
 
         self.retranslateUi()
 
+        self.connect_buttons()
+
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         # retranslate MainScreen
@@ -135,6 +137,25 @@ class LoginAndRegister(QWidget):
 
     def login(self):
         self.switch_window.emit()
+
+    def connect_buttons(self):
+        # self.registerBtn.clicked.connect()
+        # self.guestBtn.clicked.connect()
+        self.loginBtn.clicked.connect(self.login)
+        pass
+
+    def login(self):
+        filled_info = {
+                        'user_name': self.usernameLineEdit.text(),
+                        'password': self.passwordLineEdit.text()
+                     }
+        answer = self.controller.user_login(filled_info)
+        if answer == 'Error':
+            pass
+        else:
+            self.controller.set_user_win(answer['user_type'])
+            self.controller.user_id = answer['user_name']
+            self.controller.show_user_win()
 
     @property
     def controller(self):
