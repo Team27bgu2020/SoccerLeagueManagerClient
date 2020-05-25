@@ -11,7 +11,7 @@ class FanWindow(UserWindow):
 
         layout = QtWidgets.QGridLayout()
 
-        self.label = QtWidgets.QLabel(text)
+        self.label = QtWidgets.QLabel('Fan')
         layout.addWidget(self.label)
 
         self.button = QtWidgets.QPushButton('Close')

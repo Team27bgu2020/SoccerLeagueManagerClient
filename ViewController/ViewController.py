@@ -17,7 +17,7 @@ class ViewController:
 
     def __init__(self, client):
         self.log_reg_win = LoginAndRegister(self)
-        self.set_user_win('Player')
+        self.user_win = None
         self.client = client
         self.user_id = None
 
@@ -30,6 +30,13 @@ class ViewController:
         """ This method display the user main screen """
         self.log_reg_win.close()
         self.user_win.show()
+
+    def user_login(self, user_info):
+        """ This method sends the server the user login information and gets from the server the relevant
+            user information """
+        message = self.new_message('user_login', user_info)
+        self.client.send_to_server(json.dumps(message))
+        return json.loads(self.client.get_answer())
 
     def get_user_info(self):
         """ This method gets from the server the user information """
