@@ -38,6 +38,12 @@ class ViewController:
         self.client.send_to_server(json.dumps(message))
         return json.loads(self.client.get_answer())
 
+    def user_register(self, user_info):
+        message = self.new_message('user_register', user_info)
+        self.client.send_to_server(json.dumps(message))
+        return json.loads(self.client.get_answer())
+
+
     def get_user_info(self):
         """ This method gets from the server the user information """
         message = self.new_message('get_user_info')

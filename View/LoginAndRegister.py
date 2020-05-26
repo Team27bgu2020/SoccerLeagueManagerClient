@@ -139,7 +139,7 @@ class LoginAndRegister(QWidget):
         self.switch_window.emit()
 
     def connect_buttons(self):
-        # self.registerBtn.clicked.connect()
+        self.registerBtn.clicked.connect(self.register)
         # self.guestBtn.clicked.connect()
         self.loginBtn.clicked.connect(self.login)
         pass
@@ -150,6 +150,22 @@ class LoginAndRegister(QWidget):
                         'password': self.passwordLineEdit.text()
                      }
         answer = self.controller.user_login(filled_info)
+        if answer == 'Error':
+            pass
+        else:
+            self.controller.set_user_win(answer['user_type'])
+            self.controller.user_id = answer['user_name']
+            self.controller.show_user_win()
+
+    def register(self):
+        filled_info = {
+                        'user_name': self.usernameLineEdit_2.text(),
+                        'password': self.passwordLineEdit_2.text(),
+                        'name': self.nameLineEdit.text(),
+                        'birth_date': self.dateEdit.date().toPyDate().strftime("%Y-%m-%d")
+        }
+        x = self.dateEdit.date().currentDate().toPyDate()
+        answer = self.controller.user_register(filled_info)
         if answer == 'Error':
             pass
         else:
