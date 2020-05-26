@@ -20,6 +20,7 @@ class ViewController:
         self.log_reg_win = LoginAndRegister(self)
         self.user_win = None
         self.client = client
+        self.client.controller = self
         self.user_id = None
 
     def show_login(self):
@@ -38,6 +39,13 @@ class ViewController:
         msg.setText("Login-Error")
         msg.setInformativeText(message)
         msg.setWindowTitle(error_title)
+        msg.exec_()
+
+    def popup_window(self, message, message_title='New Notification!'):
+        msg = QMessageBox()
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.setText(message)
+        msg.setWindowTitle(message_title)
         msg.exec_()
 
     def user_logout(self):
@@ -83,6 +91,14 @@ class ViewController:
     def set_user_win(self, user_type):
         """ setter for the user window by user type (string) """
         self.user_win = get_user_win(user_type, self)
+
+    def handle_notifications(self, notifications):
+        if notifications == 'Error' or not notifications:
+            return
+        else:
+            for notification in notifications:
+                self.popup_window(notification)
+
 
     @property
     def user_win(self):

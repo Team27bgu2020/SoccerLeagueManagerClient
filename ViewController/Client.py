@@ -7,6 +7,7 @@ class Client:
 
     def __init__(self, server_address):
         self.server_address = server_address
+        self.controller = None
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.client_socket.settimeout(2)
 
@@ -18,7 +19,9 @@ class Client:
         while answer == '""' and times_to_try > 0:
             self.client_socket.sendto(bytes(message, encoding="utf-8"), self.server_address)
             try:
-                answer = self.client_socket.recv(4096)
+                server_ans = json.loads(self.client_socket.recv(4096))
+                answer = json.dumps(server_ans['message'])
+                self.controller.handle_notifications(server_ans['notifications'])
             except socket.timeout:
                 print('Server Response Timeout, Trying again...')
                 times_to_try -= 1
@@ -44,3 +47,11 @@ class Client:
     @client_socket.setter
     def client_socket(self, client_socket):
         self.__client_socket = client_socket
+
+    @property
+    def controller(self):
+        return self.__controller
+
+    @controller.setter
+    def controller(self, controller):
+        self.__controller = controller
