@@ -40,7 +40,7 @@ class GuestWindow(UserWindow):
         self.registerLabel_2.setGeometry(QtCore.QRect(320, 90, 91, 31))
         self.registerLabel_2.setObjectName("registerLabel_2")
         self.formLayoutWidget_3 = QtWidgets.QWidget(self)
-        self.formLayoutWidget_3.setGeometry(QtCore.QRect(320, 120, 161, 101))
+        self.formLayoutWidget_3.setGeometry(QtCore.QRect(320, 120, 171, 101))
         self.formLayoutWidget_3.setObjectName("formLayoutWidget_3")
         self.registerForm_2 = QtWidgets.QFormLayout(self.formLayoutWidget_3)
         self.registerForm_2.setContentsMargins(0, 0, 0, 0)
@@ -71,9 +71,23 @@ class GuestWindow(UserWindow):
         self.dateEditReg.setObjectName("dateEdit_2")
         self.registerForm_2.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.dateEditReg)
         self.registerBtn = QtWidgets.QPushButton(self)
-        self.registerBtn.setGeometry(QtCore.QRect(320, 220, 161, 23))
+        self.registerBtn.setGeometry(QtCore.QRect(320, 230, 171, 23))
         self.registerBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.registerBtn.setObjectName("registerBtn_2")
+        self.roleLabel_2 = QtWidgets.QLabel(self.formLayoutWidget_3)
+        self.roleLabel_2.setObjectName("roleLabel_2")
+        self.registerForm_2.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.roleLabel_2)
+        self.roleComboBox_2 = QtWidgets.QComboBox(self.formLayoutWidget_3)
+        self.roleComboBox_2.setObjectName("roleComboBox")
+        self.roleComboBox_2.addItem("")
+        self.roleComboBox_2.addItem("")
+        self.roleComboBox_2.addItem("")
+        self.roleComboBox_2.addItem("")
+        self.roleComboBox_2.addItem("")
+        self.roleComboBox_2.addItem("")
+        self.roleComboBox_2.addItem("")
+        self.roleComboBox_2.addItem("")
+        self.registerForm_2.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.roleComboBox_2)
         # search form, label and btn
         self.searchLabel = QtWidgets.QLabel(self)
         self.searchLabel.setGeometry(QtCore.QRect(210, 310, 131, 31))
@@ -175,6 +189,15 @@ class GuestWindow(UserWindow):
         self.registerBtn.setText(_translate("MainWindow", "Register"))
         self.searchBtn.setText(_translate("MainWindow", "Search"))
         self.backBtn.setText(_translate("MainWindow", "Logout"))
+        self.roleLabel_2.setText(_translate("MainWindow", "register as:"))
+        self.roleComboBox_2.setItemText(0, _translate("MainWindow", "choose role.."))
+        self.roleComboBox_2.setItemText(1, _translate("MainWindow", "Fan"))
+        self.roleComboBox_2.setItemText(2, _translate("MainWindow", "Player"))
+        self.roleComboBox_2.setItemText(3, _translate("MainWindow", "Coach"))
+        self.roleComboBox_2.setItemText(4, _translate("MainWindow", "Team Manager"))
+        self.roleComboBox_2.setItemText(5, _translate("MainWindow", "Team Owner"))
+        self.roleComboBox_2.setItemText(6, _translate("MainWindow", "Union Representor"))
+        self.roleComboBox_2.setItemText(7, _translate("MainWindow", "System Admin"))
 
     def connect_buttons(self):
         self.registerBtn.clicked.connect(self.register)
@@ -185,12 +208,14 @@ class GuestWindow(UserWindow):
 
     def login(self):
         filled_info = {
-                        'user_name': self.usernameLineEdit.text(),
-                        'password': self.passwordLineEdit.text()
-                     }
+            'user_name': self.usernameLineEdit.text(),
+            'password': self.passwordLineEdit.text()
+        }
         answer = self.controller.user_login(filled_info)
         if answer == 'Error':
-            pass
+            self.controller.error_window('The username or password is incorrect please try again', 'Login Error')
+        elif answer == '':
+            self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
         else:
             self.controller.set_user_win(answer['user_type'])
             self.controller.user_id = answer['user_name']
@@ -198,14 +223,25 @@ class GuestWindow(UserWindow):
 
     def register(self):
         filled_info = {
-                        'user_name': self.usernameLineEditReg.text(),
-                        'password': self.passwordLineEditReg.text(),
-                        'name': self.nameLineEditReg.text(),
-                        'birth_date': self.dateEditReg.date().toPyDate().strftime("%Y-%m-%d")
+            'user_name': self.usernameLineEditReg.text(),
+            'password': self.passwordLineEditReg.text(),
+            'name': self.nameLineEditReg.text(),
+            'birth_date': self.dateEditReg.date().toPyDate().strftime("%Y-%m-%d"),
+            'role': self.roleComboBox_2.currentText()
         }
         answer = self.controller.user_register(filled_info)
         if answer == 'Error':
-            pass
+            self.controller.error_window('Invalid registration info: \n'
+                                         '# Make sure your username is longer than 3 letters.\n'
+                                         '# Make sure your password is longer than 3 letters.\n'
+                                         '# Make sure your name doesnt contain numbers and is longer than 2 letters.\n'
+                                         '# Make sure you choose a role',
+                                         'Register Error')
+        elif answer == '':
+            self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
+        elif answer == 'Username Error':
+            self.controller.error_window('User with the same username already exists.\n'
+                                         'Please try a different username.', 'Register Error')
         else:
             self.controller.set_user_win(answer['user_type'])
             self.controller.user_id = answer['user_name']

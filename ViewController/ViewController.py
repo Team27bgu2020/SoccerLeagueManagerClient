@@ -35,7 +35,7 @@ class ViewController:
     def error_window(self, message, error_title='Error'):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Critical)
-        msg.setText("Login-Error")
+        msg.setText(error_title)
         msg.setInformativeText(message)
         msg.setWindowTitle(error_title)
         msg.exec_()

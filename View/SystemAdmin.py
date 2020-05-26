@@ -161,9 +161,15 @@ class SystemAdminWindow(UserWindow):
         self.logo.setPixmap(QtGui.QPixmap("../Resources/football federation.png"))
         self.logo.setScaledContents(True)
         self.logo.setObjectName("logo")
+        self.backBtn = QtWidgets.QPushButton(self)
+        self.backBtn.setGeometry(QtCore.QRect(25, 495, 95, 23))
+        self.backBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.backBtn.setObjectName("backBtn")
 
         self.retranslateUi()
         self.tabWidget.setCurrentIndex(0)
+        self.connect_buttons()
+
         QtCore.QMetaObject.connectSlotsByName(self)
 
     def retranslateUi(self):
@@ -211,6 +217,8 @@ class SystemAdminWindow(UserWindow):
         self.recSysBtn.setText(_translate("SystemAdmin", "Build Recommendation System"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.recommendationSystem),
                                   _translate("SystemAdmin", "Recommendation System"))
+        self.backBtn.setText(_translate("MainWindow", "Logout"))
+
 
     def showTeams(self):
         self.tabWidget.setCurrentIndex(1)
@@ -226,3 +234,7 @@ class SystemAdminWindow(UserWindow):
 
     def showRecoSys(self):
         self.tabWidget.setCurrentIndex(5)
+
+    def connect_buttons(self):
+        self.backBtn.clicked.connect(self.controller.user_logout)
+        pass
