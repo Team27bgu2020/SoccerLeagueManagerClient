@@ -32,14 +32,6 @@ class ViewController:
         self.log_reg_win.close()
         self.user_win.show()
 
-    def error_window(self, message, error_title='Error'):
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Critical)
-        msg.setText("Login-Error")
-        msg.setInformativeText(message)
-        msg.setWindowTitle(error_title)
-        msg.exec_()
-
     def user_logout(self):
         """ This method logs-out user from system and shows him the login-register window"""
         self.user_win.close()
@@ -59,6 +51,11 @@ class ViewController:
         answer = self.client.send_to_server(json.dumps(message))
         return json.loads(answer)
 
+    def guest_login(self):
+        """ This method sends the server a request for guest sign-in """
+        message = self.new_message('guest_login')
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
 
     def get_user_info(self):
         """ This method gets from the server the user information """

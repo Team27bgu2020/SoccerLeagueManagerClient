@@ -142,19 +142,15 @@ class LoginAndRegister(QWidget):
         pass
 
     def guest_login(self):
-        answer = self.controller.guest_login()
-        if answer == 'Error':
-            pass
-        else:
-            self.controller.set_user_win(answer['user_type'])
-            self.controller.user_id = answer['user_name']
-            self.controller.show_user_win()
+        self.controller.set_user_win('Guest')
+        self.controller.user_id = 'Guest'
+        self.controller.show_user_win()
 
     def login(self):
         filled_info = {
-                        'user_name': self.usernameLineEdit.text(),
-                        'password': self.passwordLineEdit.text()
-                     }
+            'user_name': self.usernameLineEdit.text(),
+            'password': self.passwordLineEdit.text()
+        }
         answer = self.controller.user_login(filled_info)
         if answer == 'Error':
             self.controller.error_window('The username or password is incorrect please try again', 'Login Error')
@@ -167,10 +163,10 @@ class LoginAndRegister(QWidget):
 
     def register(self):
         filled_info = {
-                        'user_name': self.usernameLineEdit_2.text(),
-                        'password': self.passwordLineEdit_2.text(),
-                        'name': self.nameLineEdit.text(),
-                        'birth_date': self.dateEdit.date().toPyDate().strftime("%Y-%m-%d")
+            'user_name': self.usernameLineEdit_2.text(),
+            'password': self.passwordLineEdit_2.text(),
+            'name': self.nameLineEdit.text(),
+            'birth_date': self.dateEdit.date().toPyDate().strftime("%Y-%m-%d")
         }
         answer = self.controller.user_register(filled_info)
         if answer == 'Error':
