@@ -247,10 +247,16 @@ class UnionRepresentorWindow(UserWindow):
         self.logo.setPixmap(QtGui.QPixmap("../Resources/football federation.png"))
         self.logo.setScaledContents(True)
         self.logo.setObjectName("logo")
+        self.backBtn = QtWidgets.QPushButton(self)
+        self.backBtn.setGeometry(QtCore.QRect(25, 495, 95, 23))
+        self.backBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.backBtn.setObjectName("backBtn")
 
         self.retranslateUi()
         self.tabWidget.setCurrentIndex(0)
         self.pointsPolicyComboBox.setCurrentIndex(0)
+        self.connect_buttons()
+
         QtCore.QMetaObject.connectSlotsByName(self)
 
     def retranslateUi(self):
@@ -260,7 +266,7 @@ class UnionRepresentorWindow(UserWindow):
                                                       "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600;\">Hello Union Representor</span></p></body></html>"))
         self.leagueBtn.setText(_translate("Form", "Leagues"))
         self.seasonBtn.setText(_translate("Form", "Seasons"))
-        self.refsBtn.setText(_translate("Form", "Refereas"))
+        self.refsBtn.setText(_translate("Form", "Referees"))
         self.budgetBtn.setText(_translate("Form", "Budget"))
         self.optionsLbl.setText(_translate("Form",
                                            "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Options</span></p></body></html>"))
@@ -314,3 +320,8 @@ class UnionRepresentorWindow(UserWindow):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.refTab), _translate("Form", "Referees"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.teamBudgetTab), _translate("Form", "TeamBudget"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.unionBudgetTab), _translate("Form", "UnionBudget"))
+        self.backBtn.setText(_translate("MainWindow", "Logout"))
+
+    def connect_buttons(self):
+        self.backBtn.clicked.connect(self.controller.user_logout)
+        pass

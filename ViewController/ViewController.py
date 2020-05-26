@@ -20,6 +20,7 @@ class ViewController:
         self.log_reg_win = LoginAndRegister(self)
         self.user_win = None
         self.client = client
+        self.client.controller = self
         self.user_id = None
 
     def show_login(self):
@@ -31,6 +32,32 @@ class ViewController:
         """ This method display the user main screen """
         self.log_reg_win.close()
         self.user_win.show()
+
+    def error_window(self, message, error_title='Error'):
+        self.msg = QMessageBox()
+        self.msg.setIcon(QMessageBox.Critical)
+        self.msg.setText(error_title)
+        self.msg.setInformativeText(message)
+        self.msg.setWindowTitle(error_title)
+        self.msg.show()
+
+    def popup_window(self, message, message_title='New Notification!'):
+        self.msg = QMessageBox()
+        self.msg.setStandardButtons(QMessageBox.Ok)
+        self.msg.setText(message)
+        self.msg.setWindowTitle(message_title)
+        self.msg.show()
+
+    def success_window(self, message, success_title='Success'):
+        self.msg = QMessageBox()
+        self.msg.setIcon(QMessageBox.Information)
+        self.msg.setText(success_title)
+        self.msg.setInformativeText(message)
+        self.msg.setWindowTitle(success_title)
+        self.msg.show()
+
+    def close_popup(self):
+        self.msg.close()
 
     def user_logout(self):
         """ This method logs-out user from system and shows him the login-register window"""
@@ -51,9 +78,17 @@ class ViewController:
         answer = self.client.send_to_server(json.dumps(message))
         return json.loads(answer)
 
-    def guest_login(self):
-        """ This method sends the server a request for guest sign-in """
-        message = self.new_message('guest_login')
+    def ref_register(self, ref_info):
+        """ This method sends the server a request from the user to register referee in the system and receives an
+        answer whether it was successful or not """
+        message = self.new_message('ref_register', ref_info)
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
+    def remove_user(self, ref_info):
+        """ This method sends the server a request to remove a user in the system and receives an answer
+        whether it was successful or not """
+        message = self.new_message('remove_user', ref_info)
         answer = self.client.send_to_server(json.dumps(message))
         return json.loads(answer)
 
@@ -69,6 +104,19 @@ class ViewController:
         answer = self.client.send_to_server(json.dumps(message))
         return json.loads(answer)
 
+    def get_logs(self):
+        """ This method sends the server the user login information and gets from the server the relevant
+            user information """
+        message = self.new_message('get_logs')
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
+    def add_policy(self, policy_info):
+        """ This method sends the server new policy information and gets from the server the relevant answer """
+        message = self.new_message('add_policy', policy_info)
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
     def new_message(self, message_type, data=None):
         """ This method returns a new message in the relevant format """
         return {
@@ -80,6 +128,16 @@ class ViewController:
     def set_user_win(self, user_type):
         """ setter for the user window by user type (string) """
         self.user_win = get_user_win(user_type, self)
+
+    def handle_notifications(self, notifications):
+        if notifications == 'Error' or not notifications:
+            return
+        else:
+            for notification in notifications:
+                self.popup_window(notification)
+
+    def close(self):
+        self.close()
 
     @property
     def user_win(self):
@@ -112,6 +170,14 @@ class ViewController:
     @user_id.setter
     def user_id(self, user_id):
         self.__user_id = user_id
+
+    @property
+    def msg(self):
+        return self.__msg
+
+    @msg.setter
+    def msg(self, msg):
+        self.__msg = msg
 
 
 def get_user_win(user_type, controller):

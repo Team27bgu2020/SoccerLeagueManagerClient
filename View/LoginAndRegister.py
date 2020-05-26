@@ -45,7 +45,7 @@ class LoginAndRegister(QWidget):
         self.registerLabel.setGeometry(QtCore.QRect(330, 30, 91, 31))
         self.registerLabel.setObjectName("registerLabel")
         self.formLayoutWidget_2 = QtWidgets.QWidget(self)
-        self.formLayoutWidget_2.setGeometry(QtCore.QRect(330, 60, 161, 101))
+        self.formLayoutWidget_2.setGeometry(QtCore.QRect(330, 60, 171, 107))
         self.formLayoutWidget_2.setObjectName("formLayoutWidget_2")
         self.registerForm = QtWidgets.QFormLayout(self.formLayoutWidget_2)
         self.registerForm.setContentsMargins(0, 0, 0, 0)
@@ -76,9 +76,24 @@ class LoginAndRegister(QWidget):
         self.dateEdit.setObjectName("dateEdit")
         self.registerForm.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.dateEdit)
         self.registerBtn = QtWidgets.QPushButton(self)
-        self.registerBtn.setGeometry(QtCore.QRect(330, 170, 161, 23))
+        self.registerBtn.setGeometry(QtCore.QRect(330, 170, 171, 23))
         self.registerBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.registerBtn.setObjectName("registerBtn")
+        self.roleLabel = QtWidgets.QLabel(self.formLayoutWidget_2)
+        self.roleLabel.setObjectName("roleLabel")
+        self.registerForm.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.roleLabel)
+        self.roleComboBox = QtWidgets.QComboBox(self.formLayoutWidget_2)
+        self.roleComboBox.setObjectName("roleComboBox")
+        self.roleComboBox.addItem("")
+        self.roleComboBox.addItem("")
+        self.roleComboBox.addItem("")
+        self.roleComboBox.addItem("")
+        self.roleComboBox.addItem("")
+        self.roleComboBox.addItem("")
+        self.roleComboBox.addItem("")
+        self.roleComboBox.addItem("")
+        self.registerForm.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.roleComboBox)
+
         # guest btn
         self.guestBtn = QtWidgets.QPushButton(self)
         self.guestBtn.setGeometry(QtCore.QRect(390, 480, 131, 23))
@@ -131,6 +146,16 @@ class LoginAndRegister(QWidget):
         self.passwordLabel.setText(_translate("MainWindow", "password:"))
         self.loginBtn.setText(_translate("MainWindow", "Login"))
         self.registerBtn.setText(_translate("MainWindow", "Register"))
+        self.roleLabel.setText(_translate("MainWindow", "register as:"))
+        self.roleComboBox.setItemText(0, _translate("MainWindow", "choose role.."))
+        self.roleComboBox.setItemText(1, _translate("MainWindow", "Fan"))
+        self.roleComboBox.setItemText(2, _translate("MainWindow", "Player"))
+        self.roleComboBox.setItemText(3, _translate("MainWindow", "Coach"))
+        self.roleComboBox.setItemText(4, _translate("MainWindow", "Team Manager"))
+        self.roleComboBox.setItemText(5, _translate("MainWindow", "Team Owner"))
+        self.roleComboBox.setItemText(6, _translate("MainWindow", "Union Representor"))
+        self.roleComboBox.setItemText(7, _translate("MainWindow", "System Admin"))
+
 
     def login(self):
         self.switch_window.emit()
@@ -166,11 +191,22 @@ class LoginAndRegister(QWidget):
             'user_name': self.usernameLineEdit_2.text(),
             'password': self.passwordLineEdit_2.text(),
             'name': self.nameLineEdit.text(),
-            'birth_date': self.dateEdit.date().toPyDate().strftime("%Y-%m-%d")
+            'birth_date': self.dateEdit.date().toPyDate().strftime("%Y-%m-%d"),
+            'role': self.roleComboBox.currentText()
         }
         answer = self.controller.user_register(filled_info)
         if answer == 'Error':
-            pass
+            self.controller.error_window('Invalid registration info: \n'
+                                         '# Make sure your username is longer than 3 letters.\n'
+                                         '# Make sure your password is longer than 3 letters.\n'
+                                         '# Make sure your name doesnt contain numbers and is longer than 2 letters.\n'
+                                         '# Make sure you choose a role',
+                                         'Register Error')
+        elif answer == '':
+            self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
+        elif answer == 'Username Error':
+            self.controller.error_window('User with the same username already exists.\n'
+                                         'Please try a different username.', 'Register Error')
         else:
             self.controller.set_user_win(answer['user_type'])
             self.controller.user_id = answer['user_name']
