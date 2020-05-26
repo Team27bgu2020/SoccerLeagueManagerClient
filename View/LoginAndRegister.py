@@ -153,7 +153,9 @@ class LoginAndRegister(QWidget):
         }
         answer = self.controller.user_login(filled_info)
         if answer == 'Error':
-            pass
+            self.controller.error_window('The username or password is incorrect please try again', 'Login Error')
+        elif answer == '':
+            self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
         else:
             self.controller.set_user_win(answer['user_type'])
             self.controller.user_id = answer['user_name']

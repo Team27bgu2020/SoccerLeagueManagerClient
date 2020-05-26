@@ -62,8 +62,8 @@ class PlayerWindow(UserWindow):
         self.update_info_btn.clicked.connect(self.update_info)
 
     def upload_content(self):
-        raise NotImplementedError
+        self.controller.error_window('UC is not Implemented')
 
     def update_info(self):
-        raise NotImplementedError
+        self.controller.error_window('UC is not Implemented')
         # self.controller.get_user_info()
