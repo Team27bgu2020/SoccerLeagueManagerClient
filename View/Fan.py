@@ -240,7 +240,6 @@ class FanWindow(UserWindow):
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        self.setWindowTitle(_translate("Form", "Form"))
         self.followPageBtn.setText(_translate("Form", "Follow Page"))
         self.followGameBtn.setText(_translate("Form", "Follow Game"))
         self.showHistoryBtn.setText(_translate("Form", "Show History"))
