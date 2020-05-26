@@ -1,4 +1,5 @@
 import json
+from PyQt5.QtWidgets import QMessageBox
 from View.LoginAndRegister import LoginAndRegister
 from View.UserWindow import UserWindow
 from View.Guest import GuestWindow
@@ -31,6 +32,14 @@ class ViewController:
         self.log_reg_win.close()
         self.user_win.show()
 
+    def error_window(self, message, error_title='Error'):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Critical)
+        msg.setText("Login-Error")
+        msg.setInformativeText(message)
+        msg.setWindowTitle(error_title)
+        msg.exec_()
+
     def user_logout(self):
         """ This method logs-out user from system and shows him the login-register window"""
         self.user_win.close()
@@ -40,33 +49,28 @@ class ViewController:
         """ This method sends the server the user login information and gets from the server the relevant
             user information """
         message = self.new_message('user_login', user_info)
-        self.client.send_to_server(json.dumps(message))
-        return json.loads(self.client.get_answer())
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
 
     def user_register(self, user_info):
         """ This method sends the server a request from the user to register in the system and receives an answer
           whether it was successful or not """
         message = self.new_message('user_register', user_info)
-        self.client.send_to_server(json.dumps(message))
-        return json.loads(self.client.get_answer())
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
 
-    def guest_login(self):
-        """ This method sends the server a request for guest sign-in """
-        message = self.new_message('guest_login')
-        self.client.send_to_server(json.dumps(message))
-        return json.loads(self.client.get_answer())
 
     def get_user_info(self):
         """ This method gets from the server the user information """
         message = self.new_message('get_user_info')
-        self.client.send_to_server(json.dumps(message))
-        return json.loads(self.client.get_answer())
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
 
     def update_user_info(self, user_info):
         """ This method sends to the server the user information """
         message = self.new_message('update_user_info', user_info)
-        self.client.send_to_server(json.dumps(message))
-        return json.loads(self.client.get_answer())
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
 
     def new_message(self, message_type, data=None):
         """ This method returns a new message in the relevant format """
