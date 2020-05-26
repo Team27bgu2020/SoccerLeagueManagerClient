@@ -233,6 +233,9 @@ class FanWindow(UserWindow):
 
         self.retranslateUi()
         self.tabWidget.setCurrentIndex(0)
+
+        self.connect_buttons()
+
         QtCore.QMetaObject.connectSlotsByName(self)
 
     def retranslateUi(self):
@@ -299,3 +302,7 @@ class FanWindow(UserWindow):
 
     def showComplaints(self):
         self.tabWidget.setCurrentIndex(3)
+
+    def connect_buttons(self):
+        self.logoutBtn.clicked.connect(self.controller.user_logout)
+        pass

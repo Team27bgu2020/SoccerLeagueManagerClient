@@ -8,7 +8,7 @@ class GuestWindow(UserWindow):
         super().__init__(controller)
 
         self.setWindowTitle('GuestScreen')
-
+        self.setGeometry(100, 100, 564, 537)
         self.formLayoutWidget_5 = QtWidgets.QWidget(self)
         self.formLayoutWidget_5.setGeometry(QtCore.QRect(70, 120, 151, 51))
         self.formLayoutWidget_5.setObjectName("formLayoutWidget_5")
@@ -18,24 +18,23 @@ class GuestWindow(UserWindow):
         self.usernameLabel_4 = QtWidgets.QLabel(self.formLayoutWidget_5)
         self.usernameLabel_4.setObjectName("usernameLabel_4")
         self.loginForm_2.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.usernameLabel_4)
-        self.usernameLineEdit_4 = QtWidgets.QLineEdit(self.formLayoutWidget_5)
-        self.usernameLineEdit_4.setObjectName("usernameLineEdit_4")
-        self.loginForm_2.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.usernameLineEdit_4)
+        self.usernameLineEdit = QtWidgets.QLineEdit(self.formLayoutWidget_5)
+        self.usernameLineEdit.setObjectName("usernameLineEdit_4")
+        self.loginForm_2.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.usernameLineEdit)
         self.passwordLabel_4 = QtWidgets.QLabel(self.formLayoutWidget_5)
         self.passwordLabel_4.setObjectName("passwordLabel_4")
         self.loginForm_2.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.passwordLabel_4)
-        self.passwordLineEdit_4 = QtWidgets.QLineEdit(self.formLayoutWidget_5)
-        self.passwordLineEdit_4.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.passwordLineEdit_4.setObjectName("passwordLineEdit_4")
-        self.loginForm_2.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.passwordLineEdit_4)
+        self.passwordLineEdit = QtWidgets.QLineEdit(self.formLayoutWidget_5)
+        self.passwordLineEdit.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.passwordLineEdit.setObjectName("passwordLineEdit_4")
+        self.loginForm_2.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.passwordLineEdit)
         self.loginLabel_2 = QtWidgets.QLabel(self)
         self.loginLabel_2.setGeometry(QtCore.QRect(60, 80, 71, 51))
         self.loginLabel_2.setObjectName("loginLabel_2")
-        self.loginBtn_2 = QtWidgets.QPushButton(self)
-        self.loginBtn_2.setGeometry(QtCore.QRect(70, 170, 151, 23))
-        self.loginBtn_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.loginBtn_2.setObjectName("loginBtn_2")
-        # self.loginBtn_2.clicked.connect(self.verifyLogin)
+        self.loginBtn = QtWidgets.QPushButton(self)
+        self.loginBtn.setGeometry(QtCore.QRect(70, 170, 151, 23))
+        self.loginBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.loginBtn.setObjectName("loginBtn_2")
         # register form, label and btn
         self.registerLabel_2 = QtWidgets.QLabel(self)
         self.registerLabel_2.setGeometry(QtCore.QRect(320, 90, 91, 31))
@@ -49,32 +48,32 @@ class GuestWindow(UserWindow):
         self.usernameLabel_3 = QtWidgets.QLabel(self.formLayoutWidget_3)
         self.usernameLabel_3.setObjectName("usernameLabel_3")
         self.registerForm_2.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.usernameLabel_3)
-        self.usernameLineEdit_3 = QtWidgets.QLineEdit(self.formLayoutWidget_3)
-        self.usernameLineEdit_3.setObjectName("usernameLineEdit_3")
-        self.registerForm_2.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.usernameLineEdit_3)
+        self.usernameLineEditReg = QtWidgets.QLineEdit(self.formLayoutWidget_3)
+        self.usernameLineEditReg.setObjectName("usernameLineEdit_3")
+        self.registerForm_2.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.usernameLineEditReg)
         self.passwordLabel_3 = QtWidgets.QLabel(self.formLayoutWidget_3)
         self.passwordLabel_3.setObjectName("passwordLabel_3")
         self.registerForm_2.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.passwordLabel_3)
-        self.passwordLineEdit_3 = QtWidgets.QLineEdit(self.formLayoutWidget_3)
-        self.passwordLineEdit_3.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.passwordLineEdit_3.setObjectName("passwordLineEdit_3")
-        self.registerForm_2.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.passwordLineEdit_3)
+        self.passwordLineEditReg = QtWidgets.QLineEdit(self.formLayoutWidget_3)
+        self.passwordLineEditReg.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.passwordLineEditReg.setObjectName("passwordLineEdit_3")
+        self.registerForm_2.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.passwordLineEditReg)
         self.nameLabel_2 = QtWidgets.QLabel(self.formLayoutWidget_3)
         self.nameLabel_2.setObjectName("nameLabel_2")
         self.registerForm_2.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.nameLabel_2)
-        self.nameLineEdit_2 = QtWidgets.QLineEdit(self.formLayoutWidget_3)
-        self.nameLineEdit_2.setObjectName("nameLineEdit_2")
-        self.registerForm_2.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.nameLineEdit_2)
+        self.nameLineEditReg = QtWidgets.QLineEdit(self.formLayoutWidget_3)
+        self.nameLineEditReg.setObjectName("nameLineEdit_2")
+        self.registerForm_2.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.nameLineEditReg)
         self.birthDateLabel_2 = QtWidgets.QLabel(self.formLayoutWidget_3)
         self.birthDateLabel_2.setObjectName("birthDateLabel_2")
         self.registerForm_2.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.birthDateLabel_2)
-        self.dateEdit_2 = QtWidgets.QDateEdit(self.formLayoutWidget_3)
-        self.dateEdit_2.setObjectName("dateEdit_2")
-        self.registerForm_2.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.dateEdit_2)
-        self.registerBtn_2 = QtWidgets.QPushButton(self)
-        self.registerBtn_2.setGeometry(QtCore.QRect(320, 220, 161, 23))
-        self.registerBtn_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.registerBtn_2.setObjectName("registerBtn_2")
+        self.dateEditReg = QtWidgets.QDateEdit(self.formLayoutWidget_3)
+        self.dateEditReg.setObjectName("dateEdit_2")
+        self.registerForm_2.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.dateEditReg)
+        self.registerBtn = QtWidgets.QPushButton(self)
+        self.registerBtn.setGeometry(QtCore.QRect(320, 220, 161, 23))
+        self.registerBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.registerBtn.setObjectName("registerBtn_2")
         # search form, label and btn
         self.searchLabel = QtWidgets.QLabel(self)
         self.searchLabel.setGeometry(QtCore.QRect(210, 310, 131, 31))
@@ -113,7 +112,6 @@ class GuestWindow(UserWindow):
         self.backBtn.setGeometry(QtCore.QRect(405, 475, 70, 23))
         self.backBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.backBtn.setObjectName("backBtn")
-        # self.backBtn.clicked.connect(self.backToMain)
         # guest screen styling
         self.label = QtWidgets.QLabel(self)
         self.label.setGeometry(QtCore.QRect(200, 20, 151, 61))
@@ -149,6 +147,8 @@ class GuestWindow(UserWindow):
 
         self.retranslateUi()
 
+        self.connect_buttons()
+
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.searchLabel.setText(_translate("MainWindow",
@@ -157,7 +157,7 @@ class GuestWindow(UserWindow):
         self.passwordLabel_3.setText(_translate("MainWindow", "password:"))
         self.nameLabel_2.setText(_translate("MainWindow", "name:"))
         self.birthDateLabel_2.setText(_translate("MainWindow", "birth date:"))
-        self.loginBtn_2.setText(_translate("MainWindow", "Login"))
+        self.loginBtn.setText(_translate("MainWindow", "Login"))
         self.registerLabel_2.setText(_translate("MainWindow",
                                                 "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Register</span></p></body></html>"))
         self.nameLabel_3.setText(_translate("MainWindow", "name:"))
@@ -172,6 +172,41 @@ class GuestWindow(UserWindow):
         self.passwordLabel_4.setText(_translate("MainWindow", "password:"))
         self.loginLabel_2.setText(_translate("MainWindow",
                                              "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600;\">Login</span></p></body></html>"))
-        self.registerBtn_2.setText(_translate("MainWindow", "Register"))
+        self.registerBtn.setText(_translate("MainWindow", "Register"))
         self.searchBtn.setText(_translate("MainWindow", "Search"))
         self.backBtn.setText(_translate("MainWindow", "Logout"))
+
+    def connect_buttons(self):
+        self.registerBtn.clicked.connect(self.register)
+        self.backBtn.clicked.connect(self.controller.user_logout)
+        self.loginBtn.clicked.connect(self.login)
+        # self.searchBtn.clicked.connect()
+        pass
+
+    def login(self):
+        filled_info = {
+                        'user_name': self.usernameLineEdit.text(),
+                        'password': self.passwordLineEdit.text()
+                     }
+        answer = self.controller.user_login(filled_info)
+        if answer == 'Error':
+            pass
+        else:
+            self.controller.set_user_win(answer['user_type'])
+            self.controller.user_id = answer['user_name']
+            self.controller.show_user_win()
+
+    def register(self):
+        filled_info = {
+                        'user_name': self.usernameLineEditReg.text(),
+                        'password': self.passwordLineEditReg.text(),
+                        'name': self.nameLineEditReg.text(),
+                        'birth_date': self.dateEditReg.date().toPyDate().strftime("%Y-%m-%d")
+        }
+        answer = self.controller.user_register(filled_info)
+        if answer == 'Error':
+            pass
+        else:
+            self.controller.set_user_win(answer['user_type'])
+            self.controller.user_id = answer['user_name']
+            self.controller.show_user_win()

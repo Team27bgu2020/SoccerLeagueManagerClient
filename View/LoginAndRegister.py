@@ -9,9 +9,9 @@ class LoginAndRegister(QWidget):
         QWidget.__init__(self)
         self.controller = controller
         self.setWindowTitle('Login')
-
+        self.setGeometry(100, 100, 564, 537)
         self.button = QtWidgets.QPushButton('Login')
-        # self.button.clicked.connect(self.login)
+        self.button.clicked.connect(self.login)
         self.loginLabel = QtWidgets.QLabel(self)
         self.loginLabel.setGeometry(QtCore.QRect(30, 30, 71, 31))
         self.loginLabel.setScaledContents(False)
@@ -40,7 +40,6 @@ class LoginAndRegister(QWidget):
         self.loginBtn.setGeometry(QtCore.QRect(30, 110, 151, 23))
         self.loginBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.loginBtn.setObjectName("loginBtn")
-
         # register form, label and btn
         self.registerLabel = QtWidgets.QLabel(self)
         self.registerLabel.setGeometry(QtCore.QRect(330, 30, 91, 31))
@@ -80,7 +79,6 @@ class LoginAndRegister(QWidget):
         self.registerBtn.setGeometry(QtCore.QRect(330, 170, 161, 23))
         self.registerBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.registerBtn.setObjectName("registerBtn")
-        # self.registerBtn.clicked.connect(lambda: controller.show_user_win(controller))
         # guest btn
         self.guestBtn = QtWidgets.QPushButton(self)
         self.guestBtn.setGeometry(QtCore.QRect(390, 480, 131, 23))
@@ -88,7 +86,6 @@ class LoginAndRegister(QWidget):
         self.guestBtn.setAutoDefault(False)
         self.guestBtn.setDefault(False)
         self.guestBtn.setObjectName("guestBtn")
-        # self.guestBtn.clicked.connect(lambda: controller.show_user_win(controller))
         # main screen styling
         self.backgroundLabel = QtWidgets.QLabel(self)
         self.backgroundLabel.setGeometry(QtCore.QRect(20, 20, 511, 491))
@@ -140,9 +137,18 @@ class LoginAndRegister(QWidget):
 
     def connect_buttons(self):
         self.registerBtn.clicked.connect(self.register)
-        # self.guestBtn.clicked.connect()
+        self.guestBtn.clicked.connect(self.guest_login)
         self.loginBtn.clicked.connect(self.login)
         pass
+
+    def guest_login(self):
+        answer = self.controller.guest_login()
+        if answer == 'Error':
+            pass
+        else:
+            self.controller.set_user_win(answer['user_type'])
+            self.controller.user_id = answer['user_name']
+            self.controller.show_user_win()
 
     def login(self):
         filled_info = {
@@ -164,7 +170,6 @@ class LoginAndRegister(QWidget):
                         'name': self.nameLineEdit.text(),
                         'birth_date': self.dateEdit.date().toPyDate().strftime("%Y-%m-%d")
         }
-        x = self.dateEdit.date().currentDate().toPyDate()
         answer = self.controller.user_register(filled_info)
         if answer == 'Error':
             pass
