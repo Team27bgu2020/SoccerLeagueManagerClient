@@ -12,6 +12,7 @@ class RefereeWindow(UserWindow):
     def create_layout(self):
         Form = self
         Form.setObjectName("MainWindow")
+        self.setWindowIcon(QtGui.QIcon('../Resources/football federation.png'))
         Form.resize(758, 441)
         self.centralwidget = QtWidgets.QWidget(Form)
         self.centralwidget.setObjectName("centralwidget")

@@ -23,6 +23,8 @@ class CoachWindow(UserWindow):
         self.update_info_btn = QtWidgets.QPushButton(Form)
         self.update_info_btn.setGeometry(QtCore.QRect(440, 230, 160, 70))
 
+        self.setWindowIcon(QtGui.QIcon('../Resources/football federation.png'))
+
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHeightForWidth(self.update_info_btn.sizePolicy().hasHeightForWidth())
 

@@ -8,6 +8,7 @@ class GuestWindow(UserWindow):
         super().__init__(controller)
 
         self.setWindowTitle('GuestScreen')
+        self.setWindowIcon(QtGui.QIcon('../Resources/football federation.png'))
         self.setGeometry(100, 100, 564, 537)
         self.formLayoutWidget_5 = QtWidgets.QWidget(self)
         self.formLayoutWidget_5.setGeometry(QtCore.QRect(70, 120, 151, 51))
@@ -79,9 +80,6 @@ class GuestWindow(UserWindow):
         self.registerForm_2.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.roleLabel_2)
         self.roleComboBox_2 = QtWidgets.QComboBox(self.formLayoutWidget_3)
         self.roleComboBox_2.setObjectName("roleComboBox")
-        self.roleComboBox_2.addItem("")
-        self.roleComboBox_2.addItem("")
-        self.roleComboBox_2.addItem("")
         self.roleComboBox_2.addItem("")
         self.roleComboBox_2.addItem("")
         self.roleComboBox_2.addItem("")
@@ -192,12 +190,9 @@ class GuestWindow(UserWindow):
         self.roleLabel_2.setText(_translate("MainWindow", "register as:"))
         self.roleComboBox_2.setItemText(0, _translate("MainWindow", "choose role.."))
         self.roleComboBox_2.setItemText(1, _translate("MainWindow", "Fan"))
-        self.roleComboBox_2.setItemText(2, _translate("MainWindow", "Player"))
-        self.roleComboBox_2.setItemText(3, _translate("MainWindow", "Coach"))
-        self.roleComboBox_2.setItemText(4, _translate("MainWindow", "Team Manager"))
-        self.roleComboBox_2.setItemText(5, _translate("MainWindow", "Team Owner"))
-        self.roleComboBox_2.setItemText(6, _translate("MainWindow", "Union Representor"))
-        self.roleComboBox_2.setItemText(7, _translate("MainWindow", "System Admin"))
+        self.roleComboBox_2.setItemText(2, _translate("MainWindow", "Team Owner"))
+        self.roleComboBox_2.setItemText(3, _translate("MainWindow", "Union Representor"))
+        self.roleComboBox_2.setItemText(4, _translate("MainWindow", "System Admin"))
 
     def connect_buttons(self):
         self.registerBtn.clicked.connect(self.register)

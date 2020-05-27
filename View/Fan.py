@@ -7,6 +7,7 @@ class FanWindow(UserWindow):
     def __init__(self, controller):
         super().__init__(controller)
         self.setWindowTitle('FanScreen')
+        self.setWindowIcon(QtGui.QIcon('../Resources/football federation.png'))
         self.setGeometry(100, 100, 564, 537)
         self.tabWidget = QtWidgets.QTabWidget(self)
         self.tabWidget.setGeometry(QtCore.QRect(10, 20, 541, 456))
@@ -15,6 +16,7 @@ class FanWindow(UserWindow):
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Triangular)
         self.tabWidget.setElideMode(QtCore.Qt.ElideNone)
         self.tabWidget.setObjectName("tabWidget")
+        # Main tab
         self.MainTab = QtWidgets.QWidget()
         self.MainTab.setObjectName("MainTab")
         self.background_pic = QtWidgets.QLabel(self.MainTab)
@@ -44,6 +46,7 @@ class FanWindow(UserWindow):
         self.editInfoBtn.setObjectName("editInfoBtn")
         self.editInfoBtn.clicked.connect(self.editInfo)
         self.tabWidget.addTab(self.MainTab, "")
+        # follow page tab
         self.followPageTab = QtWidgets.QWidget()
         self.followPageTab.setObjectName("followPageTab")
         self.searchBtn = QtWidgets.QPushButton(self.followPageTab)
@@ -87,6 +90,7 @@ class FanWindow(UserWindow):
         self.SearchLabel.raise_()
         self.formLayoutWidget_4.raise_()
         self.tabWidget.addTab(self.followPageTab, "")
+        # follow game tab
         self.followGameTab = QtWidgets.QWidget()
         self.followGameTab.setObjectName("followGameTab")
         self.background_pic_3 = QtWidgets.QLabel(self.followGameTab)
@@ -115,6 +119,7 @@ class FanWindow(UserWindow):
         self.followGameBtn2.raise_()
         self.tableWidget_showFixtures.raise_()
         self.tabWidget.addTab(self.followGameTab, "")
+        # complaints tab
         self.complaintsTab = QtWidgets.QWidget()
         self.complaintsTab.setObjectName("complaintsTab")
         self.background_pic_4 = QtWidgets.QLabel(self.complaintsTab)
@@ -136,6 +141,7 @@ class FanWindow(UserWindow):
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(2, item)
         self.tabWidget.addTab(self.complaintsTab, "")
+        # show history tab
         self.searchHistoryTab = QtWidgets.QWidget()
         self.searchHistoryTab.setObjectName("searchHistoryTab")
         self.background_pic_5 = QtWidgets.QLabel(self.searchHistoryTab)
@@ -160,6 +166,7 @@ class FanWindow(UserWindow):
         self.pushButton.setGeometry(QtCore.QRect(430, 10, 91, 23))
         self.pushButton.setObjectName("pushButton")
         self.tabWidget.addTab(self.searchHistoryTab, "")
+        # edit info tab
         self.editInfoTab = QtWidgets.QWidget()
         self.editInfoTab.setObjectName("editInfoTab")
         self.formLayoutWidget = QtWidgets.QWidget(self.editInfoTab)
@@ -211,6 +218,7 @@ class FanWindow(UserWindow):
         self.editInfoLabel.raise_()
         self.saveInfoBtn.raise_()
         self.tabWidget.addTab(self.editInfoTab, "")
+
         self.helloFanLabel = QtWidgets.QLabel(self)
         self.helloFanLabel.setGeometry(QtCore.QRect(190, -20, 151, 61))
         self.helloFanLabel.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
@@ -304,4 +312,27 @@ class FanWindow(UserWindow):
 
     def connect_buttons(self):
         self.logoutBtn.clicked.connect(self.controller.user_logout)
+        # self.saveInfoBtn.clicked.connect(self.update_info)
         pass
+
+    def update_info(self):
+        filled_info = {
+            'user_name': self.usernameLineEdit.text(),
+            'password': self.passwordLineEdit.text(),
+            'name': self.nameLineEdit.text(),
+            'birth_date': self.birthDateDateEdit.date().toPyDate().strftime("%Y-%m-%d"),
+        }
+        answer = self.controller.update_user_info(filled_info)
+        if answer == 'Error':
+            self.controller.error_window('Invalid info: \n'
+                                         '# Make sure your username is longer than 3 letters.\n'
+                                         '# Make sure your password is longer than 3 letters.\n'
+                                         '# Make sure your name doesnt contain numbers and is longer than 2 letters.\n'
+                                         'Information update Error')
+        elif answer == '':
+            self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
+        elif answer == 'Username Error':
+            self.controller.error_window('User with the same username already exists.\n'
+                                         'Please try a different username.', 'Information update Error')
+        elif answer == 'Request Success':
+            self.controller.error_window('update successful')

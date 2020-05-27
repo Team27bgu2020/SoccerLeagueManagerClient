@@ -7,6 +7,7 @@ class UnionRepresentorWindow(UserWindow):
     def __init__(self, controller):
         super().__init__(controller)
         self.setWindowTitle('UnionRepresentor')
+        self.setWindowIcon(QtGui.QIcon('../Resources/football federation.png'))
         self.setGeometry(100, 100, 564, 537)
         self.helloUnionRepresentor = QtWidgets.QLabel(self)
         self.helloUnionRepresentor.setGeometry(QtCore.QRect(150, -10, 251, 41))
@@ -261,7 +262,6 @@ class UnionRepresentorWindow(UserWindow):
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        self.setWindowTitle(_translate("Form", "Form"))
         self.helloUnionRepresentor.setText(_translate("Form",
                                                       "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600;\">Hello Union Representor</span></p></body></html>"))
         self.leagueBtn.setText(_translate("Form", "Leagues"))

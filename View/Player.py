@@ -26,6 +26,8 @@ class PlayerWindow(UserWindow):
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHeightForWidth(self.update_info_btn.sizePolicy().hasHeightForWidth())
 
+        self.setWindowIcon(QtGui.QIcon('../Resources/football federation.png'))
+
         self.update_info_btn.setSizePolicy(sizePolicy)
         self.update_info_btn.setFont(font)
 

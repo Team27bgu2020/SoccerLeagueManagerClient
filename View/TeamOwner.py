@@ -16,6 +16,7 @@ class TeamOwnerWindow(UserWindow):
         Form.resize(838, 583)
         self.centralwidget = QtWidgets.QWidget(Form)
         self.centralwidget.setObjectName("Form")
+        self.setWindowIcon(QtGui.QIcon('../Resources/football federation.png'))
         self.team_owner = QtWidgets.QLabel(self.centralwidget)
         self.team_owner.setGeometry(QtCore.QRect(280, 10, 291, 81))
         font = QtGui.QFont()

@@ -9,6 +9,7 @@ class LoginAndRegister(QWidget):
         QWidget.__init__(self)
         self.controller = controller
         self.setWindowTitle('Login')
+        self.setWindowIcon(QtGui.QIcon('../Resources/football federation.png'))
         self.setGeometry(100, 100, 564, 537)
         self.button = QtWidgets.QPushButton('Login')
         self.button.clicked.connect(self.login)
@@ -89,11 +90,7 @@ class LoginAndRegister(QWidget):
         self.roleComboBox.addItem("")
         self.roleComboBox.addItem("")
         self.roleComboBox.addItem("")
-        self.roleComboBox.addItem("")
-        self.roleComboBox.addItem("")
-        self.roleComboBox.addItem("")
         self.registerForm.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.roleComboBox)
-
         # guest btn
         self.guestBtn = QtWidgets.QPushButton(self)
         self.guestBtn.setGeometry(QtCore.QRect(390, 480, 131, 23))
@@ -132,11 +129,12 @@ class LoginAndRegister(QWidget):
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        # retranslate MainScreen
         self.registerLabel.setText(_translate("MainWindow",
-                                              "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Register</span></p></body></html>"))
+                                              "<html><head/><body><p><span style=\" font-size:14pt; "
+                                              "font-weight:600;\">Register</span></p></body></html>"))
         self.loginLabel.setText(_translate("MainWindow",
-                                           "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Login</span></p></body></html>"))
+                                           "<html><head/><body><p><span style=\" font-size:14pt; "
+                                           "font-weight:600;\">Login</span></p></body></html>"))
         self.guestBtn.setText(_translate("MainWindow", "Sign-In as a guest"))
         self.usernameLabel_2.setText(_translate("MainWindow", "username:"))
         self.passwordLabel_2.setText(_translate("MainWindow", "password:"))
@@ -149,12 +147,9 @@ class LoginAndRegister(QWidget):
         self.roleLabel.setText(_translate("MainWindow", "register as:"))
         self.roleComboBox.setItemText(0, _translate("MainWindow", "choose role.."))
         self.roleComboBox.setItemText(1, _translate("MainWindow", "Fan"))
-        self.roleComboBox.setItemText(2, _translate("MainWindow", "Player"))
-        self.roleComboBox.setItemText(3, _translate("MainWindow", "Coach"))
-        self.roleComboBox.setItemText(4, _translate("MainWindow", "Team Manager"))
-        self.roleComboBox.setItemText(5, _translate("MainWindow", "Team Owner"))
-        self.roleComboBox.setItemText(6, _translate("MainWindow", "Union Representor"))
-        self.roleComboBox.setItemText(7, _translate("MainWindow", "System Admin"))
+        self.roleComboBox.setItemText(2, _translate("MainWindow", "Team Owner"))
+        self.roleComboBox.setItemText(3, _translate("MainWindow", "Union Representor"))
+        self.roleComboBox.setItemText(4, _translate("MainWindow", "System Admin"))
 
 
     def login(self):
