@@ -7,6 +7,7 @@ class SystemAdminWindow(UserWindow):
     def __init__(self, controller):
         super().__init__(controller)
         self.setWindowTitle('SystemAdmin')
+        self.setWindowIcon(QtGui.QIcon('../Resources/football federation.png'))
         self.setGeometry(100, 100, 564, 537)
         self.widget = QtWidgets.QWidget(self)
         self.widget.setObjectName("widget")
@@ -174,7 +175,6 @@ class SystemAdminWindow(UserWindow):
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        self.setWindowTitle(_translate("SystemAdmin", "MainWindow"))
         self.helloSystemAdmin.setText(_translate("SystemAdmin",
                                                  "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600;\">Hello System Admin</span></p></body></html>"))
         self.closeTeamBtn.setText(_translate("SystemAdmin", "Teams"))
