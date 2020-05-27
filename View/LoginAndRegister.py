@@ -129,7 +129,6 @@ class LoginAndRegister(QWidget):
 
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        # retranslate MainScreen
         self.registerLabel.setText(_translate("MainWindow",
                                               "<html><head/><body><p><span style=\" font-size:14pt; "
                                               "font-weight:600;\">Register</span></p></body></html>"))
