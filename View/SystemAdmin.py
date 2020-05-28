@@ -22,23 +22,18 @@ class SystemAdminWindow(UserWindow):
         self.closeTeamBtn = QtWidgets.QPushButton(self.Main)
         self.closeTeamBtn.setGeometry(QtCore.QRect(220, 60, 75, 23))
         self.closeTeamBtn.setObjectName("closeTeamBtn")
-        self.closeTeamBtn.clicked.connect(self.showTeams)
-        self.removeUserBtn = QtWidgets.QPushButton(self.Main)
-        self.removeUserBtn.setGeometry(QtCore.QRect(220, 90, 75, 23))
-        self.removeUserBtn.setObjectName("removeUserBtn")
-        self.removeUserBtn.clicked.connect(self.showUsers)
+        self.usersBtn = QtWidgets.QPushButton(self.Main)
+        self.usersBtn.setGeometry(QtCore.QRect(220, 90, 75, 23))
+        self.usersBtn.setObjectName("removeUserBtn")
         self.complaintsBtn = QtWidgets.QPushButton(self.Main)
         self.complaintsBtn.setGeometry(QtCore.QRect(220, 120, 75, 23))
         self.complaintsBtn.setObjectName("complaintsBtn")
-        self.complaintsBtn.clicked.connect(self.showComplaints)
         self.showLoggerBtn = QtWidgets.QPushButton(self.Main)
         self.showLoggerBtn.setGeometry(QtCore.QRect(220, 150, 75, 23))
         self.showLoggerBtn.setObjectName("showLoggerBtn")
-        self.showLoggerBtn.clicked.connect(self.showLogger)
         self.buildRecoSysBtn = QtWidgets.QPushButton(self.Main)
         self.buildRecoSysBtn.setGeometry(QtCore.QRect(190, 180, 131, 23))
         self.buildRecoSysBtn.setObjectName("buildRecoSysBtn")
-        self.buildRecoSysBtn.clicked.connect(self.showRecoSys)
         self.optionsLbl = QtWidgets.QLabel(self.Main)
         self.optionsLbl.setGeometry(QtCore.QRect(180, 20, 151, 31))
         self.optionsLbl.setObjectName("optionsLbl")
@@ -85,9 +80,15 @@ class SystemAdminWindow(UserWindow):
         self.usersTable.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
         self.usersTable.setHorizontalHeaderItem(2, item)
-        self.removeUserBtn_2 = QtWidgets.QPushButton(self.users)
-        self.removeUserBtn_2.setGeometry(QtCore.QRect(400, 30, 75, 23))
-        self.removeUserBtn_2.setObjectName("removeUserBtn_2")
+        self.removeUserLbl = QtWidgets.QLabel(self.users)
+        self.removeUserLbl.setGeometry(QtCore.QRect(324, 22, 230, 40))
+        self.removeUserLbl.setObjectName("removeUserLbl")
+        self.removeUserBtn = QtWidgets.QPushButton(self.users)
+        self.removeUserBtn.setGeometry(QtCore.QRect(400, 90, 75, 23))
+        self.removeUserBtn.setObjectName("removeUserBtn_2")
+        self.usernameLineEdit_2 = QtWidgets.QLineEdit(self.users)
+        self.usernameLineEdit_2.setObjectName("usernameLineEdit_2")
+        self.usernameLineEdit_2.setGeometry(QtCore.QRect(400, 60, 75, 23))
         self.picUserTab = QtWidgets.QLabel(self.users)
         self.picUserTab.setGeometry(QtCore.QRect(0, 0, 534, 431))
         self.picUserTab.setText("")
@@ -177,8 +178,10 @@ class SystemAdminWindow(UserWindow):
         _translate = QtCore.QCoreApplication.translate
         self.helloSystemAdmin.setText(_translate("SystemAdmin",
                                                  "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600;\">Hello System Admin</span></p></body></html>"))
+        self.removeUserLbl.setText(_translate("SystemAdmin",
+                                              "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; font-weight:600;\">Remove User</span></p></body></html>"))
         self.closeTeamBtn.setText(_translate("SystemAdmin", "Teams"))
-        self.removeUserBtn.setText(_translate("SystemAdmin", "Users"))
+        self.usersBtn.setText(_translate("SystemAdmin", "Users"))
         self.complaintsBtn.setText(_translate("SystemAdmin", "Complaints"))
         self.showLoggerBtn.setText(_translate("SystemAdmin", "Logger"))
         self.buildRecoSysBtn.setText(_translate("SystemAdmin", "Recommendation System"))
@@ -190,12 +193,12 @@ class SystemAdminWindow(UserWindow):
         self.closeTeamBtn_2.setText(_translate("SystemAdmin", "Close Team"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.teams), _translate("SystemAdmin", "Teams"))
         item = self.usersTable.horizontalHeaderItem(0)
-        item.setText(_translate("SystemAdmin", "New Column"))
+        item.setText(_translate("SystemAdmin", "Username"))
         item = self.usersTable.horizontalHeaderItem(1)
         item.setText(_translate("SystemAdmin", "Role"))
         item = self.usersTable.horizontalHeaderItem(2)
         item.setText(_translate("SystemAdmin", "Name"))
-        self.removeUserBtn_2.setText(_translate("SystemAdmin", "Remove User"))
+        self.removeUserBtn.setText(_translate("SystemAdmin", "Remove User"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.users), _translate("SystemAdmin", "Users"))
         item = self.complaintsTable.horizontalHeaderItem(0)
         item.setText(_translate("SystemAdmin", "Complaint ID"))
@@ -219,7 +222,6 @@ class SystemAdminWindow(UserWindow):
                                   _translate("SystemAdmin", "Recommendation System"))
         self.backBtn.setText(_translate("MainWindow", "Logout"))
 
-
     def showTeams(self):
         self.tabWidget.setCurrentIndex(1)
 
@@ -237,4 +239,24 @@ class SystemAdminWindow(UserWindow):
 
     def connect_buttons(self):
         self.backBtn.clicked.connect(self.controller.user_logout)
+        self.buildRecoSysBtn.clicked.connect(self.showRecoSys)
+        self.closeTeamBtn.clicked.connect(self.showTeams)
+        self.usersBtn.clicked.connect(self.showUsers)
+        self.complaintsBtn.clicked.connect(self.showComplaints)
+        self.showLoggerBtn.clicked.connect(self.showLogger)
+        self.removeUserBtn.clicked.connect(self.remove_user)
         pass
+
+    def remove_user(self):
+        filled_info = {
+            'user_name': self.usernameLineEdit_2.text(),
+        }
+        answer = self.controller.remove_user(filled_info)
+        if answer == 'Error':
+            self.controller.error_window('Invalid info: \n'
+                                         '# Make sure username is correct.\n'
+                                         'User deletion Error')
+        elif answer == '':
+            self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
+        else:
+            self.controller.success_window('User deleted successfully.\n')

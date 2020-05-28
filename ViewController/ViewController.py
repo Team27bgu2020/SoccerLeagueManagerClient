@@ -40,6 +40,14 @@ class ViewController:
         msg.setWindowTitle(error_title)
         msg.exec_()
 
+    def success_window(self, message, success_title='Success'):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText(success_title)
+        msg.setInformativeText(message)
+        msg.setWindowTitle(success_title)
+        msg.exec_()
+
     def user_logout(self):
         """ This method logs-out user from system and shows him the login-register window"""
         self.user_win.close()
@@ -56,6 +64,20 @@ class ViewController:
         """ This method sends the server a request from the user to register in the system and receives an answer
           whether it was successful or not """
         message = self.new_message('user_register', user_info)
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
+    def ref_register(self, ref_info):
+        """ This method sends the server a request from the user to register referee in the system and receives an
+        answer whether it was successful or not """
+        message = self.new_message('ref_register', ref_info)
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
+    def remove_user(self, ref_info):
+        """ This method sends the server a request to remove a user in the system and receives an answer
+        whether it was successful or not """
+        message = self.new_message('remove_user', ref_info)
         answer = self.client.send_to_server(json.dumps(message))
         return json.loads(answer)
 
