@@ -15,6 +15,7 @@ class UnionRepresentorWindow(UserWindow):
         self.tabWidget = QtWidgets.QTabWidget(self)
         self.tabWidget.setGeometry(QtCore.QRect(20, 30, 521, 461))
         self.tabWidget.setObjectName("tabWidget")
+        # main tab
         self.mainTab = QtWidgets.QWidget()
         self.mainTab.setObjectName("mainTab")
         self.leagueBtn = QtWidgets.QPushButton(self.mainTab)
@@ -29,6 +30,9 @@ class UnionRepresentorWindow(UserWindow):
         self.budgetBtn = QtWidgets.QPushButton(self.mainTab)
         self.budgetBtn.setGeometry(QtCore.QRect(220, 150, 75, 23))
         self.budgetBtn.setObjectName("budgetBtn")
+        self.unionBudgetBtn = QtWidgets.QPushButton(self.mainTab)
+        self.unionBudgetBtn.setGeometry(QtCore.QRect(220, 180, 75, 23))
+        self.unionBudgetBtn.setObjectName("unionBudgetBtn")
         self.optionsLbl = QtWidgets.QLabel(self.mainTab)
         self.optionsLbl.setGeometry(QtCore.QRect(180, 20, 151, 31))
         self.optionsLbl.setObjectName("optionsLbl")
@@ -40,6 +44,7 @@ class UnionRepresentorWindow(UserWindow):
         self.picMainTab.setObjectName("picMainTab")
         self.picMainTab.lower()
         self.tabWidget.addTab(self.mainTab, "")
+        # league tab
         self.leagueTab = QtWidgets.QWidget()
         self.leagueTab.setObjectName("leagueTab")
         self.leaguesTable = QtWidgets.QTableWidget(self.leagueTab)
@@ -61,12 +66,14 @@ class UnionRepresentorWindow(UserWindow):
         self.newLeague.setObjectName("newLeague")
         self.leagueNameLabel = QtWidgets.QLabel(self.formLayoutWidget)
         self.leagueNameLabel.setObjectName("leagueNameLabel")
+        self.leagueNameLabel.setStyleSheet('color: white')
         self.newLeague.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.leagueNameLabel)
         self.leagueNameLineEdit = QtWidgets.QLineEdit(self.formLayoutWidget)
         self.leagueNameLineEdit.setObjectName("leagueNameLineEdit")
         self.newLeague.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.leagueNameLineEdit)
         self.pointsPolicyLabel = QtWidgets.QLabel(self.formLayoutWidget)
         self.pointsPolicyLabel.setObjectName("pointsPolicyLabel")
+        self.pointsPolicyLabel.setStyleSheet('color: white')
         self.newLeague.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.pointsPolicyLabel)
         self.pointsPolicyComboBox = QtWidgets.QComboBox(self.formLayoutWidget)
         self.pointsPolicyComboBox.setObjectName("pointsPolicyComboBox")
@@ -76,6 +83,7 @@ class UnionRepresentorWindow(UserWindow):
         self.newLeague.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.pointsPolicyComboBox)
         self.gameSchedulingPolicyLabel = QtWidgets.QLabel(self.formLayoutWidget)
         self.gameSchedulingPolicyLabel.setObjectName("gameSchedulingPolicyLabel")
+        self.gameSchedulingPolicyLabel.setStyleSheet('color: white')
         self.newLeague.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.gameSchedulingPolicyLabel)
         self.gameSchedulingPolicyComboBox = QtWidgets.QComboBox(self.formLayoutWidget)
         self.gameSchedulingPolicyComboBox.setObjectName("gameSchedulingPolicyComboBox")
@@ -86,6 +94,7 @@ class UnionRepresentorWindow(UserWindow):
         self.NewLeagueLbl = QtWidgets.QLabel(self.leagueTab)
         self.NewLeagueLbl.setGeometry(QtCore.QRect(326, 10, 131, 20))
         self.NewLeagueLbl.setObjectName("NewLeagueLbl")
+        self.NewLeagueLbl.setStyleSheet('color: white')
         self.picLeagueTab = QtWidgets.QLabel(self.leagueTab)
         self.picLeagueTab.setGeometry(QtCore.QRect(0, 0, 534, 431))
         self.picLeagueTab.setText("")
@@ -94,6 +103,7 @@ class UnionRepresentorWindow(UserWindow):
         self.picLeagueTab.setObjectName("picLeagueTab")
         self.picLeagueTab.lower()
         self.tabWidget.addTab(self.leagueTab, "")
+        # season tab
         self.seasonTab = QtWidgets.QWidget()
         self.seasonTab.setObjectName("seasonTab")
         self.seasonsTable = QtWidgets.QTableWidget(self.seasonTab)
@@ -114,6 +124,7 @@ class UnionRepresentorWindow(UserWindow):
         self.formLayout.setObjectName("formLayout")
         self.seasonYearLabel = QtWidgets.QLabel(self.formLayoutWidget_2)
         self.seasonYearLabel.setObjectName("seasonYearLabel")
+        self.seasonYearLabel.setStyleSheet('color: white')
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.seasonYearLabel)
         self.seasonYearSpinBox = QtWidgets.QSpinBox(self.formLayoutWidget_2)
         self.seasonYearSpinBox.setMinimum(1990)
@@ -122,18 +133,21 @@ class UnionRepresentorWindow(UserWindow):
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.seasonYearSpinBox)
         self.assignTeamsLabel = QtWidgets.QLabel(self.formLayoutWidget_2)
         self.assignTeamsLabel.setObjectName("assignTeamsLabel")
+        self.assignTeamsLabel.setStyleSheet('color: white')
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.assignTeamsLabel)
         self.assignTeamsWidget = QtWidgets.QWidget(self.formLayoutWidget_2)
         self.assignTeamsWidget.setObjectName("assignTeamsWidget")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.assignTeamsWidget)
         self.assignRefereesLabel = QtWidgets.QLabel(self.formLayoutWidget_2)
         self.assignRefereesLabel.setObjectName("assignRefereesLabel")
+        self.assignRefereesLabel.setStyleSheet('color: white')
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.assignRefereesLabel)
         self.assignRefereesWidget = QtWidgets.QWidget(self.formLayoutWidget_2)
         self.assignRefereesWidget.setObjectName("assignRefereesWidget")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.assignRefereesWidget)
         self.assignToLeagueLabel = QtWidgets.QLabel(self.formLayoutWidget_2)
         self.assignToLeagueLabel.setObjectName("assignToLeagueLabel")
+        self.assignToLeagueLabel.setStyleSheet('color: white')
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.assignToLeagueLabel)
         self.assignToLeagueWidget = QtWidgets.QWidget(self.formLayoutWidget_2)
         self.assignToLeagueWidget.setObjectName("assignToLeagueWidget")
@@ -141,6 +155,7 @@ class UnionRepresentorWindow(UserWindow):
         self.newSeasonLbl = QtWidgets.QLabel(self.seasonTab)
         self.newSeasonLbl.setGeometry(QtCore.QRect(310, 10, 131, 20))
         self.newSeasonLbl.setObjectName("newSeasonLbl")
+        self.newSeasonLbl.setStyleSheet('color: white')
         self.addSeasonBtn = QtWidgets.QPushButton(self.seasonTab)
         self.addSeasonBtn.setGeometry(QtCore.QRect(340, 120, 81, 23))
         self.addSeasonBtn.setObjectName("addSeasonBtn")
@@ -152,6 +167,7 @@ class UnionRepresentorWindow(UserWindow):
         self.picSeasonTab.setObjectName("picSeasonTab")
         self.picSeasonTab.lower()
         self.tabWidget.addTab(self.seasonTab, "")
+        # referee tab
         self.refTab = QtWidgets.QWidget()
         self.refTab.setObjectName("refTab")
         self.refTable = QtWidgets.QTableWidget(self.refTab)
@@ -165,55 +181,67 @@ class UnionRepresentorWindow(UserWindow):
         item = QtWidgets.QTableWidgetItem()
         self.refTable.setHorizontalHeaderItem(1, item)
         self.addRefBtn = QtWidgets.QPushButton(self.refTab)
-        self.addRefBtn.setGeometry(QtCore.QRect(330, 100, 91, 23))
+        self.addRefBtn.setGeometry(QtCore.QRect(340, 160, 91, 23))
         self.addRefBtn.setObjectName("addRefBtn")
-        self.removeRefBtn = QtWidgets.QPushButton(self.refTab)
-        self.removeRefBtn.setGeometry(QtCore.QRect(330, 290, 91, 23))
-        self.removeRefBtn.setObjectName("removeRefBtn")
         self.formLayoutWidget_3 = QtWidgets.QWidget(self.refTab)
-        self.formLayoutWidget_3.setGeometry(QtCore.QRect(300, 50, 160, 51))
+        self.formLayoutWidget_3.setGeometry(QtCore.QRect(300, 50, 200, 100))
         self.formLayoutWidget_3.setObjectName("formLayoutWidget_3")
         self.newRefForm = QtWidgets.QFormLayout(self.formLayoutWidget_3)
         self.newRefForm.setContentsMargins(0, 0, 0, 0)
         self.newRefForm.setObjectName("newRefForm")
         self.refUsernameLabel = QtWidgets.QLabel(self.formLayoutWidget_3)
         self.refUsernameLabel.setObjectName("refUsernameLabel")
+        self.refUsernameLabel.setStyleSheet('color: white')
         self.newRefForm.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.refUsernameLabel)
         self.refUsernameLineEdit = QtWidgets.QLineEdit(self.formLayoutWidget_3)
         self.refUsernameLineEdit.setObjectName("refUsernameLineEdit")
         self.newRefForm.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.refUsernameLineEdit)
         self.refPasswordLabel = QtWidgets.QLabel(self.formLayoutWidget_3)
         self.refPasswordLabel.setObjectName("refPasswordLabel")
+        self.refPasswordLabel.setStyleSheet('color: white')
         self.newRefForm.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.refPasswordLabel)
         self.refPasswordLineEdit = QtWidgets.QLineEdit(self.formLayoutWidget_3)
         self.refPasswordLineEdit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.refPasswordLineEdit.setObjectName("refPasswordLineEdit")
         self.newRefForm.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.refPasswordLineEdit)
+        self.nameLabel = QtWidgets.QLabel(self.formLayoutWidget_3)
+        self.nameLabel.setObjectName("nameLabel")
+        self.nameLabel.setStyleSheet('color: white')
+        self.newRefForm.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.nameLabel)
+        self.nameLineEdit = QtWidgets.QLineEdit(self.formLayoutWidget_3)
+        self.nameLineEdit.setObjectName("nameLineEdit")
+        self.newRefForm.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.nameLineEdit)
+        self.birthDateLabel = QtWidgets.QLabel(self.formLayoutWidget_3)
+        self.birthDateLabel.setObjectName("birthDateLabel")
+        self.birthDateLabel.setStyleSheet('color: white')
+        self.newRefForm.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.birthDateLabel)
+        self.dateEdit = QtWidgets.QDateEdit(self.formLayoutWidget_3)
+        self.dateEdit.setObjectName("dateEdit")
+        self.newRefForm.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.dateEdit)
+        self.refQualificationLabel = QtWidgets.QLabel(self.formLayoutWidget_3)
+        self.refQualificationLabel.setObjectName("refQualificationLabel")
+        self.refQualificationLabel.setStyleSheet('color: white')
+        self.newRefForm.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.refQualificationLabel)
+        self.refComboBox = QtWidgets.QComboBox(self.formLayoutWidget_3)
+        self.refComboBox.setObjectName("refComboBox")
+        self.refComboBox.addItem("")
+        self.refComboBox.addItem("")
+        self.refComboBox.addItem("")
+        self.newRefForm.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.refComboBox)
         self.newRefLbl = QtWidgets.QLabel(self.refTab)
-        self.newRefLbl.setGeometry(QtCore.QRect(310, 30, 131, 20))
+        self.newRefLbl.setGeometry(QtCore.QRect(320, 27, 131, 20))
         self.newRefLbl.setObjectName("newRefLbl")
+        self.newRefLbl.setStyleSheet('color: white')
         self.delRefLbl = QtWidgets.QLabel(self.refTab)
-        self.delRefLbl.setGeometry(QtCore.QRect(320, 220, 131, 20))
+        self.delRefLbl.setGeometry(QtCore.QRect(50, 360, 131, 20))
         self.delRefLbl.setObjectName("delRefLbl")
-        self.formLayoutWidget_4 = QtWidgets.QWidget(self.refTab)
-        self.formLayoutWidget_4.setGeometry(QtCore.QRect(310, 240, 160, 51))
-        self.formLayoutWidget_4.setObjectName("formLayoutWidget_4")
-        self.delRefForm = QtWidgets.QFormLayout(self.formLayoutWidget_4)
-        self.delRefForm.setContentsMargins(0, 0, 0, 0)
-        self.delRefForm.setObjectName("delRefForm")
-        self.refUsernameLabel_2 = QtWidgets.QLabel(self.formLayoutWidget_4)
-        self.refUsernameLabel_2.setObjectName("refUsernameLabel_2")
-        self.delRefForm.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.refUsernameLabel_2)
-        self.refUsernameLineEdit_2 = QtWidgets.QLineEdit(self.formLayoutWidget_4)
-        self.refUsernameLineEdit_2.setObjectName("refUsernameLineEdit_2")
-        self.delRefForm.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.refUsernameLineEdit_2)
-        self.refPasswordLabel_2 = QtWidgets.QLabel(self.formLayoutWidget_4)
-        self.refPasswordLabel_2.setObjectName("refPasswordLabel_2")
-        self.delRefForm.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.refPasswordLabel_2)
-        self.refPasswordLineEdit_2 = QtWidgets.QLineEdit(self.formLayoutWidget_4)
-        self.refPasswordLineEdit_2.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.refPasswordLineEdit_2.setObjectName("refPasswordLineEdit_2")
-        self.delRefForm.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.refPasswordLineEdit_2)
+        self.delRefLbl.setStyleSheet('color: white')
+        self.refUsernameLineEdit_2 = QtWidgets.QLineEdit(self.refTab)
+        self.refUsernameLineEdit_2.setObjectName("refUsernameLineEdit")
+        self.refUsernameLineEdit_2.setGeometry(QtCore.QRect(25, 385, 91, 23))
+        self.removeRefBtn = QtWidgets.QPushButton(self.refTab)
+        self.removeRefBtn.setGeometry(QtCore.QRect(122, 385, 91, 23))
+        self.removeRefBtn.setObjectName("removeRefBtn")
         self.picRefTab = QtWidgets.QLabel(self.refTab)
         self.picRefTab.setGeometry(QtCore.QRect(0, 0, 534, 431))
         self.picRefTab.setText("")
@@ -222,6 +250,7 @@ class UnionRepresentorWindow(UserWindow):
         self.picRefTab.setObjectName("picRefTab")
         self.picRefTab.lower()
         self.tabWidget.addTab(self.refTab, "")
+        # team budget tab
         self.teamBudgetTab = QtWidgets.QWidget()
         self.teamBudgetTab.setObjectName("teamBudgetTab")
         self.picTeamBudgetTab = QtWidgets.QLabel(self.teamBudgetTab)
@@ -232,6 +261,7 @@ class UnionRepresentorWindow(UserWindow):
         self.picTeamBudgetTab.setObjectName("picTeamBudgetTab")
         self.picTeamBudgetTab.lower()
         self.tabWidget.addTab(self.teamBudgetTab, "")
+        # union budget tab
         self.unionBudgetTab = QtWidgets.QWidget()
         self.unionBudgetTab.setObjectName("unionBudgetTab")
         self.picUnionBudgetTab = QtWidgets.QLabel(self.unionBudgetTab)
@@ -267,7 +297,8 @@ class UnionRepresentorWindow(UserWindow):
         self.leagueBtn.setText(_translate("Form", "Leagues"))
         self.seasonBtn.setText(_translate("Form", "Seasons"))
         self.refsBtn.setText(_translate("Form", "Referees"))
-        self.budgetBtn.setText(_translate("Form", "Budget"))
+        self.budgetBtn.setText(_translate("Form", "Team Budget"))
+        self.unionBudgetBtn.setText(_translate("Form", "Union Budget"))
         self.optionsLbl.setText(_translate("Form",
                                            "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Options</span></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.mainTab), _translate("Form", "Main"))
@@ -311,12 +342,16 @@ class UnionRepresentorWindow(UserWindow):
         self.removeRefBtn.setText(_translate("Form", "remove referee"))
         self.refUsernameLabel.setText(_translate("Form", "referee username:"))
         self.refPasswordLabel.setText(_translate("Form", "referee password:"))
+        self.nameLabel.setText(_translate("Form", "referee name:"))
+        self.birthDateLabel.setText(_translate("Form", "referee birth date:"))
+        self.refQualificationLabel.setText(_translate("Form", "qualification:"))
+        self.refComboBox.setItemText(0, _translate("MainWindow", "qualification.."))
+        self.refComboBox.setItemText(1, _translate("MainWindow", "Main"))
+        self.refComboBox.setItemText(2, _translate("MainWindow", "Regular"))
         self.newRefLbl.setText(_translate("Form",
                                           "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600;\">Create new referee</span></p></body></html>"))
         self.delRefLbl.setText(_translate("Form",
                                           "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600;\">Delete referee</span></p></body></html>"))
-        self.refUsernameLabel_2.setText(_translate("Form", "referee username:"))
-        self.refPasswordLabel_2.setText(_translate("Form", "referee password:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.refTab), _translate("Form", "Referees"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.teamBudgetTab), _translate("Form", "TeamBudget"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.unionBudgetTab), _translate("Form", "UnionBudget"))
@@ -324,4 +359,65 @@ class UnionRepresentorWindow(UserWindow):
 
     def connect_buttons(self):
         self.backBtn.clicked.connect(self.controller.user_logout)
+        self.addRefBtn.clicked.connect(self.add_ref)
+        self.leagueBtn.clicked.connect(self.showLeagues)
+        self.seasonBtn.clicked.connect(self.showSeasons)
+        self.budgetBtn.clicked.connect(self.showBudget)
+        self.unionBudgetBtn.clicked.connect(self.showUnionBudget)
+        self.refsBtn.clicked.connect(self.showRefs)
+        self.removeRefBtn.clicked.connect(self.delete_ref)
         pass
+
+    def add_ref(self):
+        filled_info = {
+            'user_name': self.refUsernameLineEdit.text(),
+            'password': self.refPasswordLineEdit.text(),
+            'name': self.nameLineEdit.text(),
+            'birth_date': self.dateEdit.date().toPyDate().strftime("%Y-%m-%d"),
+            'qualification': self.refComboBox.currentText()
+        }
+        answer = self.controller.ref_register(filled_info)
+        if answer == 'Error':
+            self.controller.error_window('Invalid ref registration info: \n'
+                                         '# Make sure ref username is longer than 3 letters.\n'
+                                         '# Make sure ref password is longer than 3 letters.\n'
+                                         '# Make sure ref name doesnt contain numbers and is longer than 2 letters.\n'
+                                         '# Make sure you choose qualification',
+                                         'Ref Register Error')
+        elif answer == '':
+            self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
+        elif answer == 'Username Error':
+            self.controller.error_window('User with the same username already exists.\n'
+                                         'Please try a different username.', 'Ref Register Error')
+        else:
+            self.controller.success_window('referee added successfully.\n')
+
+    def delete_ref(self):
+        filled_info = {
+            'user_name': self.refUsernameLineEdit_2.text(),
+        }
+        answer = self.controller.remove_user(filled_info)
+        if answer == 'Error':
+            self.controller.error_window('Invalid info: \n'
+                                         '# Make sure ref username is correct.\n'
+                                         'Ref deletion Error')
+        elif answer == '':
+            self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
+        else:
+            self.controller.success_window('referee deleted successfully.\n')
+
+    def showLeagues(self):
+        self.tabWidget.setCurrentIndex(1)
+
+    def showSeasons(self):
+        self.tabWidget.setCurrentIndex(2)
+
+    def showRefs(self):
+        self.tabWidget.setCurrentIndex(3)
+
+    def showBudget(self):
+        self.tabWidget.setCurrentIndex(4)
+
+    def showUnionBudget(self):
+        self.tabWidget.setCurrentIndex(5)
+

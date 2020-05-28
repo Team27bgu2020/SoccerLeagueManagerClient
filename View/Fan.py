@@ -312,7 +312,7 @@ class FanWindow(UserWindow):
 
     def connect_buttons(self):
         self.logoutBtn.clicked.connect(self.controller.user_logout)
-        # self.saveInfoBtn.clicked.connect(self.update_info)
+        self.saveInfoBtn.clicked.connect(self.update_info)
         pass
 
     def update_info(self):
@@ -335,4 +335,4 @@ class FanWindow(UserWindow):
             self.controller.error_window('User with the same username already exists.\n'
                                          'Please try a different username.', 'Information update Error')
         elif answer == 'Request Success':
-            self.controller.error_window('update successful')
+            self.controller.success_window('update successful.\n')
