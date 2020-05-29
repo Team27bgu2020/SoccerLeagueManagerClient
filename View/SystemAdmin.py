@@ -126,8 +126,11 @@ class SystemAdminWindow(UserWindow):
         self.tabWidget.addTab(self.complaints, "")
         self.logger = QtWidgets.QWidget()
         self.logger.setObjectName("logger")
+        self.showLogsBtn = QtWidgets.QPushButton(self.logger)
+        self.showLogsBtn.setGeometry(QtCore.QRect(30, 380, 75, 23))
+        self.showLogsBtn.setObjectName("showLogsBtn")
         self.loggerTable = QtWidgets.QTableWidget(self.logger)
-        self.loggerTable.setGeometry(QtCore.QRect(30, 30, 301, 341))
+        self.loggerTable.setGeometry(QtCore.QRect(30, 30, 470, 341))
         self.loggerTable.setStyleSheet("background-color: transparent")
         self.loggerTable.setObjectName("loggerTable")
         self.loggerTable.setColumnCount(2)
@@ -184,6 +187,7 @@ class SystemAdminWindow(UserWindow):
         self.usersBtn.setText(_translate("SystemAdmin", "Users"))
         self.complaintsBtn.setText(_translate("SystemAdmin", "Complaints"))
         self.showLoggerBtn.setText(_translate("SystemAdmin", "Logger"))
+        self.showLogsBtn.setText(_translate("SystemAdmin", "show logs"))
         self.buildRecoSysBtn.setText(_translate("SystemAdmin", "Recommendation System"))
         self.optionsLbl.setText(_translate("SystemAdmin",
                                            "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Options</span></p></body></html>"))
@@ -233,6 +237,16 @@ class SystemAdminWindow(UserWindow):
 
     def showLogger(self):
         self.tabWidget.setCurrentIndex(4)
+        answer = self.controller.get_logs()
+        rowCount = len(answer)
+        colCount = max([len(p) for p in answer])
+        self.loggerTable.setRowCount(rowCount)
+        self.loggerTable.setColumnCount(colCount)
+        for row, log in enumerate(answer):
+            for column, value in enumerate(log):
+                newItem = QtWidgets.QTableWidgetItem(value)
+                self.loggerTable.setItem(row, column, newItem)
+        self.loggerTable.resizeColumnsToContents()
 
     def showRecoSys(self):
         self.tabWidget.setCurrentIndex(5)
@@ -245,6 +259,7 @@ class SystemAdminWindow(UserWindow):
         self.complaintsBtn.clicked.connect(self.showComplaints)
         self.showLoggerBtn.clicked.connect(self.showLogger)
         self.removeUserBtn.clicked.connect(self.remove_user)
+        self.showLogsBtn.clicked.connect(self.showLogger)
         pass
 
     def remove_user(self):
