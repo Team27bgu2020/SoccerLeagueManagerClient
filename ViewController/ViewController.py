@@ -153,6 +153,13 @@ class ViewController:
         answer = self.client.send_to_server(json.dumps(message))
         return json.loads(answer)
 
+    def get_logs(self):
+        """ This method sends the server the user login information and gets from the server the relevant
+            user information """
+        message = self.new_message('get_logs')
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
     def team_register(self, team_info):
         """ This method sends the server new team information and gets from the server the relevant answer """
         message = self.new_message('add_team', team_info)
