@@ -14,6 +14,7 @@ class UnionRepresentorWindow(UserWindow):
         self.helloUnionRepresentor = QtWidgets.QLabel(self)
         self.helloUnionRepresentor.setGeometry(QtCore.QRect(150, -10, 251, 41))
         self.helloUnionRepresentor.setObjectName("helloUnionRepresentor")
+        self.onlyInt = QIntValidator()
         self.tabWidget = QtWidgets.QTabWidget(self)
         self.tabWidget.setGeometry(QtCore.QRect(20, 30, 521, 461))
         self.tabWidget.setObjectName("tabWidget")
@@ -35,6 +36,9 @@ class UnionRepresentorWindow(UserWindow):
         self.unionBudgetBtn = QtWidgets.QPushButton(self.mainTab)
         self.unionBudgetBtn.setGeometry(QtCore.QRect(220, 180, 75, 23))
         self.unionBudgetBtn.setObjectName("unionBudgetBtn")
+        self.policiesBtn = QtWidgets.QPushButton(self.mainTab)
+        self.policiesBtn.setGeometry(QtCore.QRect(220, 210, 75, 23))
+        self.policiesBtn.setObjectName("policiesBtn")
         self.optionsLbl = QtWidgets.QLabel(self.mainTab)
         self.optionsLbl.setGeometry(QtCore.QRect(180, 20, 151, 31))
         self.optionsLbl.setObjectName("optionsLbl")
@@ -86,71 +90,7 @@ class UnionRepresentorWindow(UserWindow):
         self.NewLeagueLbl.setGeometry(QtCore.QRect(326, 10, 131, 20))
         self.NewLeagueLbl.setObjectName("NewLeagueLbl")
         self.NewLeagueLbl.setStyleSheet('color: white')
-        self.toolBox = QtWidgets.QToolBox(self.leagueTab)
-        self.toolBox.setGeometry(QtCore.QRect(270, 90, 241, 181))
-        self.toolBox.setStyleSheet("background-color: transparent; color:white")
-        self.toolBox.setObjectName("toolBox")
-        self.pointsPolicy = QtWidgets.QWidget()
-        self.pointsPolicy.setGeometry(QtCore.QRect(0, 0, 241, 100))
-        self.pointsPolicy.setObjectName("pointsPolicy")
-        self.winPointsLbl = QtWidgets.QLabel(self.pointsPolicy)
-        self.winPointsLbl.setGeometry(QtCore.QRect(10, 0, 81, 16))
-        self.winPointsLbl.setObjectName("winPointsLbl")
-        self.drawPointsLbl = QtWidgets.QLabel(self.pointsPolicy)
-        self.drawPointsLbl.setGeometry(QtCore.QRect(10, 35, 81, 16))
-        self.drawPointsLbl.setObjectName("drawPointsLbl")
-        self.losePointsLbl = QtWidgets.QLabel(self.pointsPolicy)
-        self.losePointsLbl.setGeometry(QtCore.QRect(10, 70, 81, 16))
-        self.losePointsLbl.setObjectName("losePointsLbl")
-        self.winPointsSpinBox = QtWidgets.QSpinBox(self.pointsPolicy)
-        self.winPointsSpinBox.setGeometry(QtCore.QRect(100, 0, 42, 22))
-        self.winPointsSpinBox.setObjectName("winPointsSpinBox")
-        self.drawPointsSpinBox = QtWidgets.QSpinBox(self.pointsPolicy)
-        self.drawPointsSpinBox.setGeometry(QtCore.QRect(100, 35, 42, 22))
-        self.drawPointsSpinBox.setObjectName("drawPointsSpinBox")
-        self.losePointsSpinBox = QtWidgets.QSpinBox(self.pointsPolicy)
-        self.losePointsSpinBox.setGeometry(QtCore.QRect(100, 70, 42, 22))
-        self.losePointsSpinBox.setObjectName("losePointsSpinBox")
-        self.toolBox.addItem(self.pointsPolicy, "")
-        self.gamePolicy = QtWidgets.QWidget()
-        self.gamePolicy.setGeometry(QtCore.QRect(0, 0, 241, 100))
-        self.gamePolicy.setObjectName("gamePolicy")
-        self.gamePolicy.setStyleSheet("background-color: transparent")
-        self.numOfGamesLbl = QtWidgets.QLabel(self.gamePolicy)
-        self.numOfGamesLbl.setGeometry(QtCore.QRect(10, 0, 181, 16))
-        self.numOfGamesLbl.setObjectName("numOfGamesLbl")
-        self.gamesNumSpinBox = QtWidgets.QSpinBox(self.gamePolicy)
-        self.gamesNumSpinBox.setGeometry(QtCore.QRect(193, 0, 42, 22))
-        self.gamesNumSpinBox.setMinimum(1)
-        self.gamesNumSpinBox.setObjectName("gamesNumSpinBox")
-        self.gamesPerWeeksLbl = QtWidgets.QLabel(self.gamePolicy)
-        self.gamesPerWeeksLbl.setGeometry(QtCore.QRect(10, 35, 181, 16))
-        self.gamesPerWeeksLbl.setObjectName("gamesPerWeeksLbl")
-        self.gamesPerWeekSpinBox = QtWidgets.QSpinBox(self.gamePolicy)
-        self.gamesPerWeekSpinBox.setGeometry(QtCore.QRect(193, 35, 42, 22))
-        self.gamesPerWeekSpinBox.setMinimum(1)
-        self.gamesPerWeekSpinBox.setObjectName("gamesPerWeekSpinBox")
-        self.gameStadiumLbl = QtWidgets.QLabel(self.gamePolicy)
-        self.gameStadiumLbl.setGeometry(QtCore.QRect(10, 70, 141, 16))
-        self.gameStadiumLbl.setObjectName("gameStadiumLbl")
-        self.stadiumComboBox = QtWidgets.QComboBox(self.gamePolicy)
-        self.stadiumComboBox.setGeometry(QtCore.QRect(108, 67, 131, 22))
-        self.stadiumComboBox.setObjectName("StadiumcomboBox")
-        self.stadiumComboBox.addItem("")
-        self.stadiumComboBox.addItem("")
-        self.stadiumComboBox.addItem("")
-        self.toolBox.addItem(self.gamePolicy, "")
-        self.teamBudgetPolicy = QtWidgets.QWidget()
-        self.teamBudgetPolicy.setObjectName("teamBudgetPolicy")
-        self.minBudgetLbl = QtWidgets.QLabel(self.teamBudgetPolicy)
-        self.minBudgetLbl.setGeometry(QtCore.QRect(10, 10, 181, 16))
-        self.minBudgetLbl.setObjectName("minBudget")
-        self.minBudgetLineEdit = QtWidgets.QLineEdit(self.teamBudgetPolicy)
-        self.minBudgetLineEdit.setGeometry(QtCore.QRect(140, 10, 85, 22))
-        self.minBudgetLineEdit.setObjectName("minBudgetLineEdit")
-        self.onlyInt = QIntValidator()
-        self.minBudgetLineEdit.setValidator(self.onlyInt)
-        self.toolBox.addItem(self.teamBudgetPolicy, "")
+
         self.picLeagueTab = QtWidgets.QLabel(self.leagueTab)
         self.picLeagueTab.setGeometry(QtCore.QRect(0, 0, 534, 431))
         self.picLeagueTab.setText("")
@@ -328,6 +268,98 @@ class UnionRepresentorWindow(UserWindow):
         self.picUnionBudgetTab.setObjectName("picUnionBudgetTab")
         self.picUnionBudgetTab.lower()
         self.tabWidget.addTab(self.unionBudgetTab, "")
+        # policies tab
+        self.policyTab = QtWidgets.QWidget()
+        self.policyTab.setObjectName("policyTab")
+        self.toolBox = QtWidgets.QToolBox(self.policyTab)
+        self.toolBox.setGeometry(QtCore.QRect(20, 10, 400, 370))
+        self.toolBox.setStyleSheet("background-color: transparent; color:white")
+        self.toolBox.setObjectName("toolBox")
+        self.pointsPolicy = QtWidgets.QWidget()
+        self.pointsPolicy.setGeometry(QtCore.QRect(0, 0, 241, 100))
+        self.pointsPolicy.setObjectName("pointsPolicy")
+        self.winPointsLbl = QtWidgets.QLabel(self.pointsPolicy)
+        self.winPointsLbl.setGeometry(QtCore.QRect(10, 0, 81, 16))
+        self.winPointsLbl.setObjectName("winPointsLbl")
+        self.drawPointsLbl = QtWidgets.QLabel(self.pointsPolicy)
+        self.drawPointsLbl.setGeometry(QtCore.QRect(10, 35, 81, 16))
+        self.drawPointsLbl.setObjectName("drawPointsLbl")
+        self.losePointsLbl = QtWidgets.QLabel(self.pointsPolicy)
+        self.losePointsLbl.setGeometry(QtCore.QRect(10, 70, 81, 16))
+        self.losePointsLbl.setObjectName("losePointsLbl")
+        self.winPointsSpinBox = QtWidgets.QLineEdit(self.pointsPolicy)
+        self.winPointsSpinBox.setGeometry(QtCore.QRect(100, 0, 42, 22))
+        self.winPointsSpinBox.setObjectName("winPointsSpinBox")
+        self.winPointsSpinBox.setValidator(self.onlyInt)
+        self.drawPointsSpinBox = QtWidgets.QLineEdit(self.pointsPolicy)
+        self.drawPointsSpinBox.setGeometry(QtCore.QRect(100, 35, 42, 22))
+        self.drawPointsSpinBox.setObjectName("drawPointsSpinBox")
+        self.drawPointsSpinBox.setValidator(self.onlyInt)
+        self.losePointsSpinBox = QtWidgets.QLineEdit(self.pointsPolicy)
+        self.losePointsSpinBox.setGeometry(QtCore.QRect(100, 70, 42, 22))
+        self.losePointsSpinBox.setObjectName("losePointsSpinBox")
+        self.losePointsSpinBox.setValidator(self.onlyInt)
+        self.savePointsPolicyBtn = QtWidgets.QPushButton(self.pointsPolicy)
+        self.savePointsPolicyBtn.setGeometry(QtCore.QRect(10, 105, 91, 23))
+        self.savePointsPolicyBtn.setObjectName("savePointsPolicyBtn")
+        self.savePointsPolicyBtn.setStyleSheet('background-color: white; color: black')
+        self.toolBox.addItem(self.pointsPolicy, "")
+        self.gamePolicy = QtWidgets.QWidget()
+        self.gamePolicy.setGeometry(QtCore.QRect(0, 0, 241, 100))
+        self.gamePolicy.setObjectName("gamePolicy")
+        self.gamePolicy.setStyleSheet("background-color: transparent")
+        self.numOfGamesLbl = QtWidgets.QLabel(self.gamePolicy)
+        self.numOfGamesLbl.setGeometry(QtCore.QRect(10, 0, 181, 16))
+        self.numOfGamesLbl.setObjectName("numOfGamesLbl")
+        self.gamesNumSpinBox = QtWidgets.QLineEdit(self.gamePolicy)
+        self.gamesNumSpinBox.setGeometry(QtCore.QRect(193, 0, 42, 22))
+        self.gamesNumSpinBox.setValidator(self.onlyInt)
+        self.gamesNumSpinBox.setObjectName("gamesNumSpinBox")
+        self.gamesPerWeeksLbl = QtWidgets.QLabel(self.gamePolicy)
+        self.gamesPerWeeksLbl.setGeometry(QtCore.QRect(10, 35, 181, 16))
+        self.gamesPerWeeksLbl.setObjectName("gamesPerWeeksLbl")
+        self.gamesPerWeekSpinBox = QtWidgets.QLineEdit(self.gamePolicy)
+        self.gamesPerWeekSpinBox.setGeometry(QtCore.QRect(193, 35, 42, 22))
+        self.gamesPerWeekSpinBox.setValidator(self.onlyInt)
+        self.gamesPerWeekSpinBox.setObjectName("gamesPerWeekSpinBox")
+        self.gameStadiumLbl = QtWidgets.QLabel(self.gamePolicy)
+        self.gameStadiumLbl.setGeometry(QtCore.QRect(10, 70, 141, 16))
+        self.gameStadiumLbl.setObjectName("gameStadiumLbl")
+        self.stadiumComboBox = QtWidgets.QComboBox(self.gamePolicy)
+        self.stadiumComboBox.setGeometry(QtCore.QRect(108, 67, 131, 22))
+        self.stadiumComboBox.setObjectName("StadiumcomboBox")
+        self.stadiumComboBox.addItem("")
+        self.stadiumComboBox.addItem("")
+        self.stadiumComboBox.addItem("")
+        self.saveGamePolicyBtn = QtWidgets.QPushButton(self.gamePolicy)
+        self.saveGamePolicyBtn.setGeometry(QtCore.QRect(10, 105, 91, 23))
+        self.saveGamePolicyBtn.setObjectName("saveGamePolicyBtn")
+        self.saveGamePolicyBtn.setStyleSheet('background-color: white; color: black')
+        self.toolBox.addItem(self.gamePolicy, "")
+        self.teamBudgetPolicy = QtWidgets.QWidget()
+        self.teamBudgetPolicy.setObjectName("teamBudgetPolicy")
+        self.minBudgetLbl = QtWidgets.QLabel(self.teamBudgetPolicy)
+        self.minBudgetLbl.setGeometry(QtCore.QRect(10, 10, 181, 16))
+        self.minBudgetLbl.setObjectName("minBudget")
+        self.minBudgetLineEdit = QtWidgets.QLineEdit(self.teamBudgetPolicy)
+        self.minBudgetLineEdit.setGeometry(QtCore.QRect(140, 10, 85, 22))
+        self.minBudgetLineEdit.setObjectName("minBudgetLineEdit")
+
+        self.minBudgetLineEdit.setValidator(self.onlyInt)
+        self.saveBudgetPolicyBtn = QtWidgets.QPushButton(self.teamBudgetPolicy)
+        self.saveBudgetPolicyBtn.setGeometry(QtCore.QRect(10, 40, 91, 23))
+        self.saveBudgetPolicyBtn.setObjectName("saveGamePolicyBtn")
+        self.saveBudgetPolicyBtn.setStyleSheet('background-color: white; color: black')
+        self.toolBox.addItem(self.teamBudgetPolicy, "")
+        self.picPolicyTab = QtWidgets.QLabel(self.policyTab)
+        self.picPolicyTab.setGeometry(QtCore.QRect(0, 0, 534, 431))
+        self.picPolicyTab.setText("")
+        self.picPolicyTab.setPixmap(QtGui.QPixmap("../Resources/city.jpg"))
+        self.picPolicyTab.setScaledContents(True)
+        self.picPolicyTab.setObjectName("picPolicyTab")
+        self.picPolicyTab.lower()
+        self.tabWidget.addTab(self.policyTab, "")
+
         self.logo = QtWidgets.QLabel(self)
         self.logo.setGeometry(QtCore.QRect(450, 430, 101, 101))
         self.logo.setText("")
@@ -354,6 +386,7 @@ class UnionRepresentorWindow(UserWindow):
         self.refsBtn.setText(_translate("Form", "Referees"))
         self.budgetBtn.setText(_translate("Form", "Team Budget"))
         self.unionBudgetBtn.setText(_translate("Form", "Union Budget"))
+        self.policiesBtn.setText(_translate("Form", "Policies"))
         self.optionsLbl.setText(_translate("Form",
                                            "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Options</span></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.mainTab), _translate("Form", "Main"))
@@ -367,6 +400,9 @@ class UnionRepresentorWindow(UserWindow):
         self.winPointsLbl.setText(_translate("Form", "Points for win:"))
         self.drawPointsLbl.setText(_translate("Form", "Points for draw:"))
         self.losePointsLbl.setText(_translate("Form", "Points for lose:"))
+        self.savePointsPolicyBtn.setText(_translate("Form", "Save policy"))
+        self.saveGamePolicyBtn.setText(_translate("Form", "Save policy"))
+        self.saveBudgetPolicyBtn.setText(_translate("Form", "Save policy"))
         self.toolBox.setItemText(self.toolBox.indexOf(self.pointsPolicy), _translate("Form", "Points policy:"))
         self.numOfGamesLbl.setText(_translate("Form", "Number of games against each team:"))
         self.gamesPerWeeksLbl.setText(_translate("Form", "Number of games per week:"))
@@ -411,6 +447,7 @@ class UnionRepresentorWindow(UserWindow):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.refTab), _translate("Form", "Referees"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.teamBudgetTab), _translate("Form", "TeamBudget"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.unionBudgetTab), _translate("Form", "UnionBudget"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.policyTab), _translate("Form", "Policies"))
         self.backBtn.setText(_translate("MainWindow", "Logout"))
 
     def connect_buttons(self):
@@ -422,7 +459,10 @@ class UnionRepresentorWindow(UserWindow):
         self.unionBudgetBtn.clicked.connect(self.showUnionBudget)
         self.refsBtn.clicked.connect(self.showRefs)
         self.removeRefBtn.clicked.connect(self.delete_ref)
-        self.addLeagueBtn.clicked.connect(self.addLeague)
+        self.savePointsPolicyBtn.clicked.connect(self.addPointsPolicy)
+        self.saveGamePolicyBtn.clicked.connect(self.addGamePolicy)
+        self.saveBudgetPolicyBtn.clicked.connect(self.addBudgetPolicy)
+        self.policiesBtn.clicked.connect(self.showPolicies)
         pass
 
     def add_ref(self):
@@ -463,39 +503,39 @@ class UnionRepresentorWindow(UserWindow):
         else:
             self.controller.success_window('referee deleted successfully.\n')
 
-    def addLeague(self):
+    def addPointsPolicy(self):
         filled_info = {
-            'league_name': self.leagueNameLineEdit.text(),
-            'season': self.seasonYearSpinBox.text(),
+            'policy_type': 'points',
             'pointsWin': self.winPointsSpinBox.text(),
             'pointsDraw': self.drawPointsSpinBox.text(),
             'pointsLose': self.losePointsSpinBox.text(),
+        }
+        if self.filled_info_check(filled_info) is True:
+            return
+        answer = self.controller.add_policy(filled_info)
+        self.policy_ans_check(answer)
+
+    def addGamePolicy(self):
+        filled_info = {
+            'policy_type': 'games',
             'game_against_each_team': self.gamesNumSpinBox.text(),
             'games_per_week': self.gamesPerWeekSpinBox.text(),
             'stadium': self.stadiumComboBox.currentText(),
-            'min_budget': self.minBudgetLineEdit.text()
         }
-        for info in filled_info:
-            if filled_info.get(info) == "":
-                self.controller.error_window('Invalid league info:\n'
-                                             'Please fill all fields in order to create a league.',
-                                             'New league Error')
-                return
-        answer = self.controller.add_league(filled_info)
-        if answer == 'Error':
-            self.controller.error_window('Invalid league info: \n',
-                                         'New league Error')
-        elif answer == 'Stadium Error':
-            self.controller.error_window('Invalid league info: \n'
-                                         'please fill Game scheduling policy properly. \n',
-                                         'New league Error')
-        elif answer == '':
-            self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
-        elif answer == 'League Name Error':
-            self.controller.error_window('league with the same name already exists.\n'
-                                         'Please try a different name.', 'New league Error')
-        else:
-            self.controller.success_window('league added successfully.\n')
+        if self.filled_info_check(filled_info) is True:
+            return
+        answer = self.controller.add_policy(filled_info)
+        self.policy_ans_check(answer)
+
+    def addBudgetPolicy(self):
+        filled_info = {
+            'policy_type': 'budget',
+            'min_budget': self.minBudgetLineEdit.text(),
+        }
+        if self.filled_info_check(filled_info) is True:
+            return
+        answer = self.controller.add_policy(filled_info)
+        self.policy_ans_check(answer)
 
     def showLeagues(self):
         self.tabWidget.setCurrentIndex(1)
@@ -512,3 +552,27 @@ class UnionRepresentorWindow(UserWindow):
     def showUnionBudget(self):
         self.tabWidget.setCurrentIndex(5)
 
+    def showPolicies(self):
+        self.tabWidget.setCurrentIndex(6)
+
+    def policy_ans_check(self, answer):
+        if answer == 'Error':
+            self.controller.error_window('Invalid policy info: \n'
+                                         'Please choose stadium',
+                                         'New Policy Error')
+        elif answer == '':
+            self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
+        elif answer == 'Error policy exists':
+            self.controller.error_window('Policy with the same attributes already exists.\n'
+                                         'Please try a different name.', 'New policy Error')
+        else:
+            self.controller.success_window('Policy added successfully.\n')
+
+    def filled_info_check(self, filled_info):
+        for info in filled_info:
+            if filled_info.get(info) == "":
+                self.controller.error_window('Invalid policy info:\n'
+                                             'Please fill all fields in order to create a policy.',
+                                             'New policy Error')
+                return True
+        return False
