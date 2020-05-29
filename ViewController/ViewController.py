@@ -132,6 +132,12 @@ class ViewController:
         answer = self.client.send_to_server(json.dumps(message))
         return json.loads(answer)
 
+    def add_league(self, league_info):
+        """ This method sends the server new league information and gets from the server the relevant answer """
+        message = self.new_message('add_league', league_info)
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
     def new_message(self, message_type, data=None):
         """ This method returns a new message in the relevant format """
         return {

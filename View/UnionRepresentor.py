@@ -1,4 +1,6 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5.QtGui import QIntValidator
+
 from View.UserWindow import UserWindow
 
 
@@ -56,10 +58,10 @@ class UnionRepresentorWindow(UserWindow):
         item = QtWidgets.QTableWidgetItem()
         self.leaguesTable.setHorizontalHeaderItem(0, item)
         self.addLeagueBtn = QtWidgets.QPushButton(self.leagueTab)
-        self.addLeagueBtn.setGeometry(QtCore.QRect(350, 110, 75, 23))
+        self.addLeagueBtn.setGeometry(QtCore.QRect(350, 280, 75, 23))
         self.addLeagueBtn.setObjectName("addLeagueBtn")
         self.formLayoutWidget = QtWidgets.QWidget(self.leagueTab)
-        self.formLayoutWidget.setGeometry(QtCore.QRect(280, 30, 231, 81))
+        self.formLayoutWidget.setGeometry(QtCore.QRect(270, 30, 241, 51))
         self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.newLeague = QtWidgets.QFormLayout(self.formLayoutWidget)
         self.newLeague.setContentsMargins(0, 0, 0, 0)
@@ -71,30 +73,84 @@ class UnionRepresentorWindow(UserWindow):
         self.leagueNameLineEdit = QtWidgets.QLineEdit(self.formLayoutWidget)
         self.leagueNameLineEdit.setObjectName("leagueNameLineEdit")
         self.newLeague.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.leagueNameLineEdit)
-        self.pointsPolicyLabel = QtWidgets.QLabel(self.formLayoutWidget)
-        self.pointsPolicyLabel.setObjectName("pointsPolicyLabel")
-        self.pointsPolicyLabel.setStyleSheet('color: white')
-        self.newLeague.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.pointsPolicyLabel)
-        self.pointsPolicyComboBox = QtWidgets.QComboBox(self.formLayoutWidget)
-        self.pointsPolicyComboBox.setObjectName("pointsPolicyComboBox")
-        self.pointsPolicyComboBox.addItem("")
-        self.pointsPolicyComboBox.addItem("")
-        self.pointsPolicyComboBox.addItem("")
-        self.newLeague.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.pointsPolicyComboBox)
-        self.gameSchedulingPolicyLabel = QtWidgets.QLabel(self.formLayoutWidget)
-        self.gameSchedulingPolicyLabel.setObjectName("gameSchedulingPolicyLabel")
-        self.gameSchedulingPolicyLabel.setStyleSheet('color: white')
-        self.newLeague.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.gameSchedulingPolicyLabel)
-        self.gameSchedulingPolicyComboBox = QtWidgets.QComboBox(self.formLayoutWidget)
-        self.gameSchedulingPolicyComboBox.setObjectName("gameSchedulingPolicyComboBox")
-        self.gameSchedulingPolicyComboBox.addItem("")
-        self.gameSchedulingPolicyComboBox.addItem("")
-        self.gameSchedulingPolicyComboBox.addItem("")
-        self.newLeague.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.gameSchedulingPolicyComboBox)
+        self.seasonLabel = QtWidgets.QLabel(self.formLayoutWidget)
+        self.seasonLabel.setObjectName("seasonLabel")
+        self.seasonLabel.setStyleSheet('color: white')
+        self.newLeague.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.seasonLabel)
+        self.seasonSpinBox = QtWidgets.QSpinBox(self.formLayoutWidget)
+        self.seasonSpinBox.setMinimum(1990)
+        self.seasonSpinBox.setMaximum(2050)
+        self.seasonSpinBox.setObjectName("seasonSpinBox")
+        self.newLeague.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.seasonSpinBox)
         self.NewLeagueLbl = QtWidgets.QLabel(self.leagueTab)
         self.NewLeagueLbl.setGeometry(QtCore.QRect(326, 10, 131, 20))
         self.NewLeagueLbl.setObjectName("NewLeagueLbl")
         self.NewLeagueLbl.setStyleSheet('color: white')
+        self.toolBox = QtWidgets.QToolBox(self.leagueTab)
+        self.toolBox.setGeometry(QtCore.QRect(270, 90, 241, 181))
+        self.toolBox.setStyleSheet("background-color: transparent; color:white")
+        self.toolBox.setObjectName("toolBox")
+        self.pointsPolicy = QtWidgets.QWidget()
+        self.pointsPolicy.setGeometry(QtCore.QRect(0, 0, 241, 100))
+        self.pointsPolicy.setObjectName("pointsPolicy")
+        self.winPointsLbl = QtWidgets.QLabel(self.pointsPolicy)
+        self.winPointsLbl.setGeometry(QtCore.QRect(10, 0, 81, 16))
+        self.winPointsLbl.setObjectName("winPointsLbl")
+        self.drawPointsLbl = QtWidgets.QLabel(self.pointsPolicy)
+        self.drawPointsLbl.setGeometry(QtCore.QRect(10, 35, 81, 16))
+        self.drawPointsLbl.setObjectName("drawPointsLbl")
+        self.losePointsLbl = QtWidgets.QLabel(self.pointsPolicy)
+        self.losePointsLbl.setGeometry(QtCore.QRect(10, 70, 81, 16))
+        self.losePointsLbl.setObjectName("losePointsLbl")
+        self.winPointsSpinBox = QtWidgets.QSpinBox(self.pointsPolicy)
+        self.winPointsSpinBox.setGeometry(QtCore.QRect(100, 0, 42, 22))
+        self.winPointsSpinBox.setObjectName("winPointsSpinBox")
+        self.drawPointsSpinBox = QtWidgets.QSpinBox(self.pointsPolicy)
+        self.drawPointsSpinBox.setGeometry(QtCore.QRect(100, 35, 42, 22))
+        self.drawPointsSpinBox.setObjectName("drawPointsSpinBox")
+        self.losePointsSpinBox = QtWidgets.QSpinBox(self.pointsPolicy)
+        self.losePointsSpinBox.setGeometry(QtCore.QRect(100, 70, 42, 22))
+        self.losePointsSpinBox.setObjectName("losePointsSpinBox")
+        self.toolBox.addItem(self.pointsPolicy, "")
+        self.gamePolicy = QtWidgets.QWidget()
+        self.gamePolicy.setGeometry(QtCore.QRect(0, 0, 241, 100))
+        self.gamePolicy.setObjectName("gamePolicy")
+        self.gamePolicy.setStyleSheet("background-color: transparent")
+        self.numOfGamesLbl = QtWidgets.QLabel(self.gamePolicy)
+        self.numOfGamesLbl.setGeometry(QtCore.QRect(10, 0, 181, 16))
+        self.numOfGamesLbl.setObjectName("numOfGamesLbl")
+        self.gamesNumSpinBox = QtWidgets.QSpinBox(self.gamePolicy)
+        self.gamesNumSpinBox.setGeometry(QtCore.QRect(193, 0, 42, 22))
+        self.gamesNumSpinBox.setMinimum(1)
+        self.gamesNumSpinBox.setObjectName("gamesNumSpinBox")
+        self.gamesPerWeeksLbl = QtWidgets.QLabel(self.gamePolicy)
+        self.gamesPerWeeksLbl.setGeometry(QtCore.QRect(10, 35, 181, 16))
+        self.gamesPerWeeksLbl.setObjectName("gamesPerWeeksLbl")
+        self.gamesPerWeekSpinBox = QtWidgets.QSpinBox(self.gamePolicy)
+        self.gamesPerWeekSpinBox.setGeometry(QtCore.QRect(193, 35, 42, 22))
+        self.gamesPerWeekSpinBox.setMinimum(1)
+        self.gamesPerWeekSpinBox.setObjectName("gamesPerWeekSpinBox")
+        self.gameStadiumLbl = QtWidgets.QLabel(self.gamePolicy)
+        self.gameStadiumLbl.setGeometry(QtCore.QRect(10, 70, 141, 16))
+        self.gameStadiumLbl.setObjectName("gameStadiumLbl")
+        self.stadiumComboBox = QtWidgets.QComboBox(self.gamePolicy)
+        self.stadiumComboBox.setGeometry(QtCore.QRect(108, 67, 131, 22))
+        self.stadiumComboBox.setObjectName("StadiumcomboBox")
+        self.stadiumComboBox.addItem("")
+        self.stadiumComboBox.addItem("")
+        self.stadiumComboBox.addItem("")
+        self.toolBox.addItem(self.gamePolicy, "")
+        self.teamBudgetPolicy = QtWidgets.QWidget()
+        self.teamBudgetPolicy.setObjectName("teamBudgetPolicy")
+        self.minBudgetLbl = QtWidgets.QLabel(self.teamBudgetPolicy)
+        self.minBudgetLbl.setGeometry(QtCore.QRect(10, 10, 181, 16))
+        self.minBudgetLbl.setObjectName("minBudget")
+        self.minBudgetLineEdit = QtWidgets.QLineEdit(self.teamBudgetPolicy)
+        self.minBudgetLineEdit.setGeometry(QtCore.QRect(140, 10, 85, 22))
+        self.minBudgetLineEdit.setObjectName("minBudgetLineEdit")
+        self.onlyInt = QIntValidator()
+        self.minBudgetLineEdit.setValidator(self.onlyInt)
+        self.toolBox.addItem(self.teamBudgetPolicy, "")
         self.picLeagueTab = QtWidgets.QLabel(self.leagueTab)
         self.picLeagueTab.setGeometry(QtCore.QRect(0, 0, 534, 431))
         self.picLeagueTab.setText("")
@@ -285,7 +341,6 @@ class UnionRepresentorWindow(UserWindow):
 
         self.retranslateUi()
         self.tabWidget.setCurrentIndex(0)
-        self.pointsPolicyComboBox.setCurrentIndex(0)
         self.connect_buttons()
 
         QtCore.QMetaObject.connectSlotsByName(self)
@@ -306,21 +361,22 @@ class UnionRepresentorWindow(UserWindow):
         item.setText(_translate("Form", "League"))
         self.addLeagueBtn.setText(_translate("Form", "create league"))
         self.leagueNameLabel.setText(_translate("Form", "league name:"))
-        self.pointsPolicyLabel.setText(_translate("Form", "points policy:"))
-        self.pointsPolicyComboBox.setToolTip(_translate("Form",
-                                                        "<html><head/><body><p><span style=\" text-decoration: underline;\">Soccer</span></p><p>Win - 3 points</p><p>Draw - 1 point</p><p>Lose - 0 points</p><p><span style=\" text-decoration: underline;\">Basketball</span></p><p>Win - 2 points</p><p>Draw - 0 points</p><p>Lose - 1 point</p></body></html>"))
-        self.pointsPolicyComboBox.setWhatsThis(_translate("Form", "<html><head/><body><p><br/></p></body></html>"))
-        self.pointsPolicyComboBox.setItemText(0, _translate("Form", "choose policy.."))
-        self.pointsPolicyComboBox.setItemText(1, _translate("Form", "Soccer"))
-        self.pointsPolicyComboBox.setItemText(2, _translate("Form", "Basketball"))
-        self.gameSchedulingPolicyLabel.setText(_translate("Form", "game scheduling policy: "))
-        self.gameSchedulingPolicyComboBox.setToolTip(_translate("Form",
-                                                                "<html><head/><body><p><span style=\" text-decoration: underline;\">Home and Away:</span></p><p>two games against each team, once at home and once away.<br/></p><p><span style=\" text-decoration: underline;\">Knockout:</span></p><p>one game against each team.</p></body></html>"))
-        self.gameSchedulingPolicyComboBox.setItemText(0, _translate("Form", "choose policy.."))
-        self.gameSchedulingPolicyComboBox.setItemText(1, _translate("Form", "Home and Away"))
-        self.gameSchedulingPolicyComboBox.setItemText(2, _translate("Form", "Knockout"))
+        self.seasonLabel.setText(_translate("Form", "season year:"))
         self.NewLeagueLbl.setText(_translate("Form",
                                              "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600;\">Create new league</span></p></body></html>"))
+        self.winPointsLbl.setText(_translate("Form", "Points for win:"))
+        self.drawPointsLbl.setText(_translate("Form", "Points for draw:"))
+        self.losePointsLbl.setText(_translate("Form", "Points for lose:"))
+        self.toolBox.setItemText(self.toolBox.indexOf(self.pointsPolicy), _translate("Form", "Points policy:"))
+        self.numOfGamesLbl.setText(_translate("Form", "Number of games against each team:"))
+        self.gamesPerWeeksLbl.setText(_translate("Form", "Number of games per week:"))
+        self.gameStadiumLbl.setText(_translate("Form", "Game stadium:"))
+        self.stadiumComboBox.setItemText(0, _translate("Form", "choose stadium.."))
+        self.stadiumComboBox.setItemText(1, _translate("Form", "Home & Away Stadiums"))
+        self.stadiumComboBox.setItemText(2, _translate("Form", "Random Stadium"))
+        self.toolBox.setItemText(self.toolBox.indexOf(self.gamePolicy), _translate("Form", "Game scheduling policy: "))
+        self.minBudgetLbl.setText(_translate("Form", "Minimum budget for team:"))
+        self.toolBox.setItemText(self.toolBox.indexOf(self.teamBudgetPolicy), _translate("Form", "Team budget policy:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.leagueTab), _translate("Form", "Leagues"))
         item = self.seasonsTable.horizontalHeaderItem(0)
         item.setText(_translate("Form", "Season"))
@@ -366,6 +422,7 @@ class UnionRepresentorWindow(UserWindow):
         self.unionBudgetBtn.clicked.connect(self.showUnionBudget)
         self.refsBtn.clicked.connect(self.showRefs)
         self.removeRefBtn.clicked.connect(self.delete_ref)
+        self.addLeagueBtn.clicked.connect(self.addLeague)
         pass
 
     def add_ref(self):
@@ -405,6 +462,40 @@ class UnionRepresentorWindow(UserWindow):
             self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
         else:
             self.controller.success_window('referee deleted successfully.\n')
+
+    def addLeague(self):
+        filled_info = {
+            'league_name': self.leagueNameLineEdit.text(),
+            'season': self.seasonYearSpinBox.text(),
+            'pointsWin': self.winPointsSpinBox.text(),
+            'pointsDraw': self.drawPointsSpinBox.text(),
+            'pointsLose': self.losePointsSpinBox.text(),
+            'game_against_each_team': self.gamesNumSpinBox.text(),
+            'games_per_week': self.gamesPerWeekSpinBox.text(),
+            'stadium': self.stadiumComboBox.currentText(),
+            'min_budget': self.minBudgetLineEdit.text()
+        }
+        for info in filled_info:
+            if filled_info.get(info) == "":
+                self.controller.error_window('Invalid league info:\n'
+                                             'Please fill all fields in order to create a league.',
+                                             'New league Error')
+                return
+        answer = self.controller.add_league(filled_info)
+        if answer == 'Error':
+            self.controller.error_window('Invalid league info: \n',
+                                         'New league Error')
+        elif answer == 'Stadium Error':
+            self.controller.error_window('Invalid league info: \n'
+                                         'please fill Game scheduling policy properly. \n',
+                                         'New league Error')
+        elif answer == '':
+            self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
+        elif answer == 'League Name Error':
+            self.controller.error_window('league with the same name already exists.\n'
+                                         'Please try a different name.', 'New league Error')
+        else:
+            self.controller.success_window('league added successfully.\n')
 
     def showLeagues(self):
         self.tabWidget.setCurrentIndex(1)
