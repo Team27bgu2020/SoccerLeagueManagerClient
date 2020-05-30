@@ -59,14 +59,6 @@ class ViewController:
     def close_popup(self):
         self.msg.close()
 
-    def success_window(self, message, success_title='Success'):
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Information)
-        msg.setText(success_title)
-        msg.setInformativeText(message)
-        msg.setWindowTitle(success_title)
-        msg.exec_()
-
     def user_logout(self):
         """ This method logs-out user from system and shows him the login-register window"""
         self.user_win.close()
