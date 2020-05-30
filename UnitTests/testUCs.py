@@ -5,11 +5,13 @@ from ViewController.Client import Client
 import sys
 
 from View.UnionRepresentor import UnionRepresentorWindow
+from View.TeamOwner import TeamOwnerWindow
 
 
 class TestUCs(TestCase):
 
     def test_login(self):
+        """ test - login UC """
         server_address = ('localhost', 10000)
         app = QApplication(sys.argv)
         controller = ViewController(Client(server_address))
@@ -33,6 +35,7 @@ class TestUCs(TestCase):
         self.assertFalse(controller.log_reg_win.isVisible())
 
     def test_create_policies(self):
+        """ test - create new policies UC """
         server_address = ('localhost', 10000)
         app = QApplication(sys.argv)
         controller = ViewController(Client(server_address))
@@ -78,6 +81,41 @@ class TestUCs(TestCase):
         self.assertTrue(controller.msg.icon() == QMessageBox.Critical)
         controller.close_popup()
 
+    def test_create_team(self):
+        """ test - create new team UC """
+        server_address = ('localhost', 10000)
+        app = QApplication(sys.argv)
+        controller = ViewController(Client(server_address))
+        controller.user_id = 'dor'
+        controller.user_win = TeamOwnerWindow(controller)
+        controller.show_user_win()
+
+        # test - create new team
+        self.assertTrue(controller.user_win.isVisible())
+        controller.user_win.open_team()
+        controller.user_win.set_team_name('Barcelona')
+        controller.user_win.click_create_team()
+        self.assertTrue(controller.msg.isVisible())
+        self.assertTrue(controller.msg.icon() == QMessageBox.Information)
+        controller.close_popup()
+        # test - Error when trying to create a team with a duplicate names
+        self.assertTrue(controller.user_win.isVisible())
+        controller.user_win.open_team()
+        controller.user_win.set_team_name('Barcelona')
+        controller.user_win.click_create_team()
+        self.assertTrue(controller.msg.isVisible())
+        self.assertTrue(controller.msg.icon() == QMessageBox.Critical)
+        controller.close_popup()
+        controller.user_win.close_open_team_dialog()
+
+    # def test_manage_game(self):
+    #     """ test - manage game UC """
+    #     server_address = ('localhost', 10000)
+    #     app = QApplication(sys.argv)
+    #     controller = ViewController(Client(server_address))
+    #     controller.user_id = 'dor'
+    #     controller.user_win = TeamOwnerWindow(controller)
+    #     controller.show_user_win()
 
 
 

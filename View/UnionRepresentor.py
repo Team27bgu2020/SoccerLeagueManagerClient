@@ -502,6 +502,9 @@ class UnionRepresentorWindow(UserWindow):
         self.assignGamePolicyBtn.clicked.connect(lambda: self.showPolicies('Games'))
         pass
 
+    def get_policies(self):
+        policies = self.controller.get_policies()
+
     def add_ref(self):
         filled_info = {
             'user_name': self.refUsernameLineEdit.text(),
