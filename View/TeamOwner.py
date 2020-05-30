@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtWidgets import QDialog, QLabel
 from qtconsole.qt import QtGui
 
 from View.UserWindow import UserWindow
@@ -18,7 +19,7 @@ class TeamOwnerWindow(UserWindow):
         self.centralwidget.setObjectName("Form")
         self.setWindowIcon(QtGui.QIcon('../Resources/football federation.png'))
         self.team_owner = QtWidgets.QLabel(self.centralwidget)
-        self.team_owner.setGeometry(QtCore.QRect(280, 10, 291, 81))
+        self.team_owner.setGeometry(QtCore.QRect(310, 10, 291, 81))
         font = QtGui.QFont()
         font.setPointSize(25)
         font.setBold(True)
@@ -27,7 +28,7 @@ class TeamOwnerWindow(UserWindow):
         self.team_owner.setFont(font)
         self.team_owner.setObjectName("team_owner")
         self.edit_personal_details = QtWidgets.QPushButton(self.centralwidget)
-        self.edit_personal_details.setGeometry(QtCore.QRect(320, 100, 211, 41))
+        self.edit_personal_details.setGeometry(QtCore.QRect(310, 100, 211, 41))
         self.edit_personal_details.setObjectName("edit_personal_details")
         self.edit_team_managers = QtWidgets.QPushButton(self.centralwidget)
         self.edit_team_managers.setGeometry(QtCore.QRect(70, 240, 211, 41))
@@ -99,12 +100,18 @@ class TeamOwnerWindow(UserWindow):
         self.rep_player_transfer_2.setFont(font)
         self.rep_player_transfer_2.setObjectName("rep_player_transfer_2")
 
+        self.open_team_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.open_team_btn.setGeometry(20, 20, 90, 40)
+        self.open_team_btn.setObjectName('open_team_btn')
+
+        self.connect_buttons()
+
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "TeamOwner"))
         self.team_owner.setText(_translate("Form", "Team Owner"))
         self.edit_personal_details.setText(_translate("Form", "Edit My Personal Details"))
         self.edit_team_managers.setText(_translate("Form", "Team Managers"))
@@ -123,3 +130,41 @@ class TeamOwnerWindow(UserWindow):
         self.delete_team_owner.setText(_translate("Form", "Delete Team Owner"))
         self.delete_team_manager.setText(_translate("Form", "Delete Team Managers"))
         self.rep_player_transfer_2.setText(_translate("Form", "Close Team"))
+        self.open_team_btn.setText(_translate("Form", "Open Team"))
+
+    def connect_buttons(self):
+        self.open_team_btn.clicked.connect(self.open_team)
+        # self.edit_players.clicked.connect(self.add_player)
+
+    def open_team(self):
+        self.dialog = QDialog()
+        self.dialog.setWindowIcon(QtGui.QIcon('../Resources/football federation.png'))
+        self.dialog.setWindowTitle('New Team')
+        self.dialog.setGeometry(560, 180, 235, 120)
+        self.dialog.TeamNameLbl = QtWidgets.QLabel(self.dialog)
+        self.dialog.TeamNameLbl.setGeometry(QtCore.QRect(10, 20, 100, 16))
+        self.dialog.TeamNameLbl.setObjectName("TeamNameLbl")
+        self.dialog.TeamNameLbl.setText('Enter team name:')
+        self.dialog.TeamNameLineEdit = QtWidgets.QLineEdit(self.dialog)
+        self.dialog.TeamNameLineEdit.setGeometry(QtCore.QRect(120, 20, 100, 16))
+        self.dialog.TeamNameLineEdit.setObjectName("TeamNameLineEdit")
+        self.dialog.createTeamBtn = QtWidgets.QPushButton(self.dialog)
+        self.dialog.createTeamBtn.setGeometry(QtCore.QRect(70, 60, 100, 26))
+        self.dialog.createTeamBtn.setObjectName("TeamNameLbl")
+        self.dialog.createTeamBtn.setText('Create team')
+        self.dialog.createTeamBtn.clicked.connect(self.new_team)
+        self.dialog.exec_()
+
+    def new_team(self):
+        filled_info = {
+            'team_name': self.dialog.TeamNameLineEdit.text(),
+        }
+        answer = self.controller.team_register(filled_info)
+        if answer == 'Error':
+            self.controller.error_window('Invalid team registration info: \n'
+                                         '# Team with the same name already exists.\n\n'
+                                         'Team Registration Error')
+        elif answer == '':
+            self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
+        else:
+            self.controller.success_window('Team added successfully.\n')

@@ -489,6 +489,10 @@ class UnionRepresentorWindow(UserWindow):
             'birth_date': self.dateEdit.date().toPyDate().strftime("%Y-%m-%d"),
             'qualification': self.refComboBox.currentText()
         }
+        if filled_info.get('qualification') == 'qualification..':
+            self.controller.error_window('Invalid ref registration info: \n'
+                                         '# Make sure you choose qualification', 'Ref Register Error')
+            return
         answer = self.controller.ref_register(filled_info)
         if answer == 'Error':
             self.controller.error_window('Invalid ref registration info: \n'

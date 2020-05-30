@@ -106,6 +106,12 @@ class ViewController:
         answer = self.client.send_to_server(json.dumps(message))
         return json.loads(answer)
 
+    def team_register(self, team_info):
+        """ This method sends the server new team information and gets from the server the relevant answer """
+        message = self.new_message('add_team', team_info)
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
     def new_message(self, message_type, data=None):
         """ This method returns a new message in the relevant format """
         return {
