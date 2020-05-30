@@ -160,6 +160,9 @@ class LoginAndRegister(QWidget):
         self.loginBtn.clicked.connect(self.login)
         pass
 
+    def click_login(self):
+        self.loginBtn.click()
+
     def guest_login(self):
         self.controller.set_user_win('Guest')
         self.controller.user_id = 'Guest'
@@ -205,6 +208,12 @@ class LoginAndRegister(QWidget):
             self.controller.set_user_win(answer['user_type'])
             self.controller.user_id = answer['user_name']
             self.controller.show_user_win()
+
+    def set_username(self, username):
+        self.usernameLineEdit.setText(username)
+
+    def set_password(self, password):
+        self.passwordLineEdit.setText(password)
 
     @property
     def controller(self):
