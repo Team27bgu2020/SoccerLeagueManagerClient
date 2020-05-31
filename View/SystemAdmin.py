@@ -49,6 +49,10 @@ class SystemAdminWindow(UserWindow):
         self.tabWidget.addTab(self.Main, "")
         self.teams = QtWidgets.QWidget()
         self.teams.setObjectName("teams")
+        self.showTeamsBtn = QtWidgets.QPushButton(self.teams)
+        self.showTeamsBtn.setGeometry(QtCore.QRect(30, 380, 75, 23))
+        self.showTeamsBtn.setObjectName("showTeamsBtn")
+        self.showTeamsBtn.setText('Show teams')
         self.teamTable = QtWidgets.QTableWidget(self.teams)
         self.teamTable.setGeometry(QtCore.QRect(30, 30, 256, 321))
         self.teamTable.setStyleSheet("background-color: transparent")
@@ -242,6 +246,17 @@ class SystemAdminWindow(UserWindow):
 
     def showTeams(self):
         self.tabWidget.setCurrentIndex(1)
+        answer = self.controller.get_teams()
+        row_count = len(answer)
+        column_count = max([len(p) for p in answer])
+        self.teamTable.setRowCount(row_count)
+        self.teamTable.setColumnCount(column_count)
+        self.teamTable.setHorizontalHeaderLabels((list(answer[0].keys())))
+        for row in range(row_count):
+            for column in range(column_count):
+                item = (list(answer[row].values())[column])
+                self.teamTable.setItem(row, column, QTableWidgetItem(item))
+        self.teamTable.resizeColumnsToContents()
 
     def showUsers(self):
         self.tabWidget.setCurrentIndex(2)
@@ -254,7 +269,7 @@ class SystemAdminWindow(UserWindow):
             for column in range(column_count):
                 item = (list(answer[row].values())[column])
                 self.usersTable.setItem(row, column, QTableWidgetItem(item))
-        self.loggerTable.resizeColumnsToContents()
+        self.usersTable.resizeColumnsToContents()
 
     def showComplaints(self):
         self.tabWidget.setCurrentIndex(3)
@@ -285,6 +300,7 @@ class SystemAdminWindow(UserWindow):
         self.removeUserBtn.clicked.connect(self.remove_user)
         self.showLogsBtn.clicked.connect(self.showLogger)
         self.showUsersBtn.clicked.connect(self.showUsers)
+        self.showTeamsBtn.clicked.connect(self.showTeams)
         pass
 
     def remove_user(self):

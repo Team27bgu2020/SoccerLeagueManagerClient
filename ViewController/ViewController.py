@@ -107,6 +107,13 @@ class ViewController:
         answer = self.client.send_to_server(json.dumps(message))
         return json.loads(answer)
 
+    def get_teams(self):
+        """ This method sends the server a request for the teams information and gets from the server the relevant
+        information """
+        message = self.new_message('get_teams')
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
     def add_policy(self, policy_info):
         """ This method sends the server new policy information and gets from the server the relevant answer """
         message = self.new_message('add_policy', policy_info)
