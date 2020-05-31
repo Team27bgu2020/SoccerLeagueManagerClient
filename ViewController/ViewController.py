@@ -94,9 +94,16 @@ class ViewController:
         return json.loads(answer)
 
     def get_logs(self):
-        """ This method sends the server the user login information and gets from the server the relevant
-            user information """
+        """ This method sends the server a request for the logs information and gets from the server the relevant
+        information """
         message = self.new_message('get_logs')
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
+    def get_users(self):
+        """ This method sends the server a request for the users information and gets from the server the relevant
+        information """
+        message = self.new_message('get_users')
         answer = self.client.send_to_server(json.dumps(message))
         return json.loads(answer)
 
