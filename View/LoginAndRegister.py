@@ -90,6 +90,8 @@ class LoginAndRegister(QWidget):
         self.roleComboBox.addItem("")
         self.roleComboBox.addItem("")
         self.roleComboBox.addItem("")
+        self.roleComboBox.addItem("")
+        self.roleComboBox.addItem("")
         self.registerForm.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.roleComboBox)
         # guest btn
         self.guestBtn = QtWidgets.QPushButton(self)
@@ -150,6 +152,8 @@ class LoginAndRegister(QWidget):
         self.roleComboBox.setItemText(2, _translate("MainWindow", "Team Owner"))
         self.roleComboBox.setItemText(3, _translate("MainWindow", "Union Representor"))
         self.roleComboBox.setItemText(4, _translate("MainWindow", "System Admin"))
+        self.roleComboBox.setItemText(5, _translate("MainWindow", "Referee"))
+        self.roleComboBox.setItemText(6, _translate("MainWindow", "Main Referee"))
 
 
     def login(self):
