@@ -107,6 +107,13 @@ class ViewController:
         answer = self.client.send_to_server(json.dumps(message))
         return json.loads(answer)
 
+    def get_refs(self):
+        """ This method sends the server a request for the referees information and gets from the server the relevant
+        information """
+        message = self.new_message('get_refs')
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
     def get_teams(self):
         """ This method sends the server a request for the teams information and gets from the server the relevant
         information """

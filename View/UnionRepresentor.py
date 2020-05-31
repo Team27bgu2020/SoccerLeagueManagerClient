@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtGui import QIntValidator
+from PyQt5.QtWidgets import QTableWidgetItem
 
 from View.UserWindow import UserWindow
 
@@ -178,6 +179,10 @@ class UnionRepresentorWindow(UserWindow):
         # referee tab
         self.refTab = QtWidgets.QWidget()
         self.refTab.setObjectName("refTab")
+        self.showRefereesBtn = QtWidgets.QPushButton(self.refTab)
+        self.showRefereesBtn.setGeometry(QtCore.QRect(30, 380, 91, 23))
+        self.showRefereesBtn.setObjectName("showRefereesBtn")
+        self.showRefereesBtn.setText('Show referees')
         self.refTable = QtWidgets.QTableWidget(self.refTab)
         self.refTable.setGeometry(QtCore.QRect(10, 30, 211, 321))
         self.refTable.setStyleSheet("background-color: transparent")
@@ -241,14 +246,14 @@ class UnionRepresentorWindow(UserWindow):
         self.newRefLbl.setObjectName("newRefLbl")
         self.newRefLbl.setStyleSheet('color: white')
         self.delRefLbl = QtWidgets.QLabel(self.refTab)
-        self.delRefLbl.setGeometry(QtCore.QRect(50, 360, 131, 20))
+        self.delRefLbl.setGeometry(QtCore.QRect(320, 210, 131, 20))
         self.delRefLbl.setObjectName("delRefLbl")
         self.delRefLbl.setStyleSheet('color: white')
         self.refUsernameLineEdit_2 = QtWidgets.QLineEdit(self.refTab)
         self.refUsernameLineEdit_2.setObjectName("refUsernameLineEdit")
-        self.refUsernameLineEdit_2.setGeometry(QtCore.QRect(25, 385, 91, 23))
+        self.refUsernameLineEdit_2.setGeometry(QtCore.QRect(300, 240, 91, 23))
         self.removeRefBtn = QtWidgets.QPushButton(self.refTab)
-        self.removeRefBtn.setGeometry(QtCore.QRect(122, 385, 91, 23))
+        self.removeRefBtn.setGeometry(QtCore.QRect(400, 240, 91, 23))
         self.removeRefBtn.setObjectName("removeRefBtn")
         self.picRefTab = QtWidgets.QLabel(self.refTab)
         self.picRefTab.setGeometry(QtCore.QRect(0, 0, 534, 431))
@@ -479,6 +484,7 @@ class UnionRepresentorWindow(UserWindow):
         self.saveGamePolicyBtn.clicked.connect(self.addGamePolicy)
         self.saveBudgetPolicyBtn.clicked.connect(self.addBudgetPolicy)
         self.policiesBtn.clicked.connect(self.showPolicies)
+        self.showRefereesBtn.clicked.connect(self.showRefs)
         pass
 
     def add_ref(self):
@@ -565,6 +571,18 @@ class UnionRepresentorWindow(UserWindow):
 
     def showRefs(self):
         self.tabWidget.setCurrentIndex(3)
+        answer = self.controller.get_refs()
+        row_count = len(answer)
+        column_count = max([len(p) for p in answer])
+        self.refTable.setRowCount(row_count)
+        self.refTable.setColumnCount(column_count)
+        self.refTable.setHorizontalHeaderLabels((list(answer[0].keys())))
+        for row in range(row_count):
+            for column in range(column_count):
+                item = (list(answer[row].values())[column])
+                self.refTable.setItem(row, column, QTableWidgetItem(item))
+        self.refTable.resizeColumnsToContents()
+
 
     def showBudget(self):
         self.tabWidget.setCurrentIndex(4)
