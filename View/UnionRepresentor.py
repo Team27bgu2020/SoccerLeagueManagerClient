@@ -586,6 +586,8 @@ class UnionRepresentorWindow(UserWindow):
 
     def showRefs(self):
         self.tabWidget.setCurrentIndex(3)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.NoBrush)
         answer = self.controller.get_refs()
         row_count = len(answer)
         column_count = max([len(p) for p in answer])
@@ -594,7 +596,8 @@ class UnionRepresentorWindow(UserWindow):
         self.refTable.setHorizontalHeaderLabels((list(answer[0].keys())))
         for row in range(row_count):
             for column in range(column_count):
-                item = (list(answer[row].values())[column])
+                item = QtWidgets.QTableWidgetItem((list(answer[row].values())[column]))
+                item.setForeground(brush)
                 self.refTable.setItem(row, column, QTableWidgetItem(item))
         self.refTable.resizeColumnsToContents()
 
