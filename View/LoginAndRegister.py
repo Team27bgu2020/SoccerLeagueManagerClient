@@ -151,7 +151,6 @@ class LoginAndRegister(QWidget):
         self.roleComboBox.setItemText(3, _translate("MainWindow", "Union Representor"))
         self.roleComboBox.setItemText(4, _translate("MainWindow", "System Admin"))
 
-
     def login(self):
         self.switch_window.emit()
 

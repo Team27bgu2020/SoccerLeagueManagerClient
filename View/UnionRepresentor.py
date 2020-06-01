@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtGui import QIntValidator
-from PyQt5.QtWidgets import QTableWidgetItem
+from PyQt5.QtWidgets import QTableWidgetItem, QDialog
 
 from View.UserWindow import UserWindow
 
@@ -63,7 +63,7 @@ class UnionRepresentorWindow(UserWindow):
         item = QtWidgets.QTableWidgetItem()
         self.leaguesTable.setHorizontalHeaderItem(0, item)
         self.addLeagueBtn = QtWidgets.QPushButton(self.leagueTab)
-        self.addLeagueBtn.setGeometry(QtCore.QRect(350, 160, 75, 23))
+        self.addLeagueBtn.setGeometry(QtCore.QRect(350, 172, 75, 23))
         self.addLeagueBtn.setObjectName("addLeagueBtn")
         self.formLayoutWidget = QtWidgets.QWidget(self.leagueTab)
         self.formLayoutWidget.setGeometry(QtCore.QRect(270, 30, 241, 200))
@@ -86,14 +86,26 @@ class UnionRepresentorWindow(UserWindow):
         self.assignPointsPolicyLabel.setObjectName("assignPointsPolicyLabel")
         self.assignPointsPolicyLabel.setStyleSheet('color: white')
         self.newLeague.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.assignPointsPolicyLabel)
+        self.assignPointPolicyBtn = QtWidgets.QPushButton(self.formLayoutWidget)
+        self.assignPointPolicyBtn.setObjectName("assignPointPolicyBtn")
+        self.assignPointPolicyBtn.setText('Points policy')
+        self.newLeague.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.assignPointPolicyBtn)
         self.assignGamePolicyLabel = QtWidgets.QLabel(self.formLayoutWidget)
         self.assignGamePolicyLabel.setObjectName("assignGamePolicyLabel")
         self.assignGamePolicyLabel.setStyleSheet('color: white')
         self.newLeague.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.assignGamePolicyLabel)
+        self.assignGamePolicyBtn = QtWidgets.QPushButton(self.formLayoutWidget)
+        self.assignGamePolicyBtn.setObjectName("assignGamePolicyBtn")
+        self.assignGamePolicyBtn.setText('Game policy')
+        self.newLeague.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.assignGamePolicyBtn)
         self.assignBudgetPolicyLabel = QtWidgets.QLabel(self.formLayoutWidget)
         self.assignBudgetPolicyLabel.setObjectName("assignBudgetPolicyLabel")
         self.assignBudgetPolicyLabel.setStyleSheet('color: white')
         self.newLeague.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.assignBudgetPolicyLabel)
+        self.assignBudgetPolicyBtn = QtWidgets.QPushButton(self.formLayoutWidget)
+        self.assignBudgetPolicyBtn.setObjectName("assignBudgetPolicyBtn")
+        self.assignBudgetPolicyBtn.setText('Budget policy')
+        self.newLeague.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.assignBudgetPolicyBtn)
         self.seasonSpinBox = QtWidgets.QSpinBox(self.formLayoutWidget)
         self.seasonSpinBox.setMinimum(1990)
         self.seasonSpinBox.setMaximum(2050)
@@ -485,6 +497,9 @@ class UnionRepresentorWindow(UserWindow):
         self.saveBudgetPolicyBtn.clicked.connect(self.addBudgetPolicy)
         self.policiesBtn.clicked.connect(self.showPolicies)
         self.showRefereesBtn.clicked.connect(self.showRefs)
+        self.assignBudgetPolicyBtn.clicked.connect(lambda: self.showPolicies('Budget'))
+        self.assignPointPolicyBtn.clicked.connect(lambda: self.showPolicies('Points'))
+        self.assignGamePolicyBtn.clicked.connect(lambda: self.showPolicies('Games'))
         pass
 
     def add_ref(self):
@@ -583,7 +598,6 @@ class UnionRepresentorWindow(UserWindow):
                 self.refTable.setItem(row, column, QTableWidgetItem(item))
         self.refTable.resizeColumnsToContents()
 
-
     def showBudget(self):
         self.tabWidget.setCurrentIndex(4)
 
@@ -614,3 +628,33 @@ class UnionRepresentorWindow(UserWindow):
                                              'New policy Error')
                 return True
         return False
+
+    def showPolicies(self, typeOf):
+        self.dialog = QDialog()
+        self.dialog.setWindowIcon(QtGui.QIcon('../Resources/football federation.png'))
+        self.dialog.setWindowTitle(typeOf + ' policies')
+        self.dialog.setGeometry(450, 150, 280, 340)
+        self.dialog.PolicyLbl = QtWidgets.QLabel(self.dialog)
+        self.dialog.PolicyLbl.setGeometry(QtCore.QRect(35, 0, 251, 41))
+        self.dialog.PolicyLbl.setObjectName("PolicyLbl")
+        self.dialog.PolicyLbl.setText(typeOf + ' policies - please choose one')
+        self.dialog.PolicyLbl.setFont(QtGui.QFont("Times", weight=QtGui.QFont.Bold))
+        self.dialog.PolicyTable = QtWidgets.QTableWidget(self.dialog)
+        self.dialog.PolicyTable.setGeometry(QtCore.QRect(10, 30, 256, 300))
+        self.dialog.PolicyTable.setStyleSheet("background-color: transparent")
+        self.dialog.PolicyTable.setObjectName("PolicyTable")
+        self.get_policies(typeOf)
+        self.dialog.exec_()
+
+    def get_policies(self, typeOf):
+        answer = self.controller.get_policy(typeOf)
+        row_count = len(answer)
+        column_count = max([len(p) for p in answer])
+        self.dialog.PolicyTable.setRowCount(row_count)
+        self.dialog.PolicyTable.setColumnCount(column_count)
+        self.dialog.PolicyTable.setHorizontalHeaderLabels((list(answer[0].keys())))
+        for row in range(row_count):
+            for column in range(column_count):
+                item = (list(answer[row].values())[column])
+                self.dialog.PolicyTable.setItem(row, column, QTableWidgetItem(item))
+        self.dialog.PolicyTable.resizeColumnsToContents()
