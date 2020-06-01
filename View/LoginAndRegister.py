@@ -155,7 +155,6 @@ class LoginAndRegister(QWidget):
         self.roleComboBox.setItemText(5, _translate("MainWindow", "Referee"))
         self.roleComboBox.setItemText(6, _translate("MainWindow", "Main Referee"))
 
-
     def login(self):
         self.switch_window.emit()
 
