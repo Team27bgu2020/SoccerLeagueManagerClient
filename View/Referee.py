@@ -245,6 +245,20 @@ class RefereeWindow(UserWindow):
         self.personal_games.clicked.connect(self.all_my_games_tab)
         pass
 
+    def edit_game_event(self, game, event, event_type, des, min):
+        self.game_id_box_edit_2.setCurrentIndex(game)
+        self.fill_events_of_game()
+        self.game_event_id_box_edit.setCurrentIndex(event)
+        self.event_type_box_edit.setCurrentIndex(event_type)
+        self.event_dec_text_2.setText(des)
+        self.min_in_game_box_2.setValue(min)
+
+    def click_create_game_event(self):
+        self.submit.click()
+
+    def click_edit_game_event(self):
+        self.submit_2.click()
+
     def add_game_event_tab(self):
         self.Referee.setCurrentIndex(1)
 
