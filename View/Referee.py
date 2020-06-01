@@ -16,7 +16,6 @@ class RefereeWindow(UserWindow):
 
     def create_layout(self):
         Form = self
-        Form.setObjectName("Form")
         Form.resize(725, 570)
         self.Referee = QtWidgets.QTabWidget(Form)
         self.Referee.setGeometry(QtCore.QRect(50, 100, 611, 411))
@@ -107,7 +106,7 @@ class RefereeWindow(UserWindow):
         self.game_min_label_2.setFont(font)
         self.game_min_label_2.setObjectName("game_min_label_2")
         self.submit_2 = QtWidgets.QPushButton(self.edit_dame_event)
-        self.submit_2.setGeometry(QtCore.QRect(230, 310, 141, 51))
+        self.submit_2.setGeometry(QtCore.QRect(110, 300, 141, 51))
         self.submit_2.setObjectName("submit_2")
         self.game_id_label_2 = QtWidgets.QLabel(self.edit_dame_event)
         self.game_id_label_2.setGeometry(QtCore.QRect(70, 80, 141, 41))
@@ -153,6 +152,9 @@ class RefereeWindow(UserWindow):
         self.game_event_id_box_edit = QtWidgets.QComboBox(self.edit_dame_event)
         self.game_event_id_box_edit.setGeometry(QtCore.QRect(320, 120, 211, 31))
         self.game_event_id_box_edit.setObjectName("game_event_id_box_edit")
+        self.delete_event_btn = QtWidgets.QPushButton(self.edit_dame_event)
+        self.delete_event_btn.setGeometry(QtCore.QRect(350, 300, 141, 51))
+        self.delete_event_btn.setObjectName("delete_event_btn")
         self.Referee.addTab(self.edit_dame_event, "")
         self.on_going_game = QtWidgets.QWidget()
         self.on_going_game.setObjectName("on_going_game")
@@ -211,7 +213,7 @@ class RefereeWindow(UserWindow):
         self.Referee.setTabText(self.Referee.indexOf(self.add_game_event1), _translate("Form", "Add Game Event"))
         self.event_type_label_2.setText(_translate("Form", "Event Type:"))
         self.game_min_label_2.setText(_translate("Form", "Min in the game:"))
-        self.submit_2.setText(_translate("Form", "Submit"))
+        self.submit_2.setText(_translate("Form", "Edit"))
         self.game_id_label_2.setText(_translate("Form", "Game ID:"))
         self.event_type_box_edit.setItemText(0, _translate("Form", "Goal"))
         self.event_type_box_edit.setItemText(1, _translate("Form", "Yellow Card"))
@@ -225,6 +227,7 @@ class RefereeWindow(UserWindow):
                                                  "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
                                                  "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.game_event_id_label.setText(_translate("Form", "Game event ID:"))
+        self.delete_event_btn.setText(_translate("Form", "Delete"))
         self.Referee.setTabText(self.Referee.indexOf(self.edit_dame_event), _translate("Form", "Edit Game Event"))
         self.Referee.setTabText(self.Referee.indexOf(self.on_going_game), _translate("Form", "On Going Games"))
         self.Referee.setTabText(self.Referee.indexOf(self.all_games), _translate("Form", "All My Games"))
@@ -236,7 +239,9 @@ class RefereeWindow(UserWindow):
         self.add_game_event.clicked.connect(self.add_game_event_tab)
         self.update_game_event.clicked.connect(self.edit_game_event_tab)
         self.submit.clicked.connect(self.add_game_event_func)
-        self.game_id_box_edit_2.activated(self.fill_events_of_game(str(self.game_id_box_add.currentText())))
+        self.game_id_box_edit_2.activated.connect(self.fill_events_of_game)
+        self.submit_2.clicked.connect(self.edit_game_event_func)
+        self.delete_event_btn.clicked.connect(self.delete_event)
         pass
 
     def add_game_event_tab(self):
@@ -248,11 +253,24 @@ class RefereeWindow(UserWindow):
     def on_going_games_tab(self):
         self.all_tabs.setCurrentIndex(3)
 
+    def delete_event(self):
+        event_id = str(self.game_event_id_box_edit.currentText().split('-')[0])
+        filled_info = {
+            # all data
+            'event_id': event_id
+        }
+        answer = self.controller.delete_event(filled_info)
+        if answer == 'Success':
+            self.controller.success_window('Event deleted successfully.\n')
+        elif answer == '':
+            self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
+        else:
+            self.controller.error_window('Game ID is not correct.\n')
 
     def add_game_event_func(self):
         referee_id = self.controller.user_id
-        game_id = str(self.game_id_box_add.currentText())
-        event_type = str(self.event_type_box.currentText())
+        game_id = str(self.game_id_box_add.currentText().split(':')[0])
+        event_type = str(self.event_type_box_add.currentText())
         event_des = self.event_dec_text.toPlainText()
         min_in_game = str(self.min_in_game_box.value())
         filled_info = {
@@ -261,45 +279,70 @@ class RefereeWindow(UserWindow):
             'game_id': game_id,
             'event_type': event_type,
             'event_description': event_des,
-            'min_in_game': min_in_game
+            'min_in_game': min_in_game,
         }
 
         answer = self.controller.add_event(filled_info)
         if answer == 'Success':
             self.controller.success_window('Event added successfully.\n')
+        elif answer == '':
+            self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
+        else:
+            self.controller.error_window('Game ID is not correct.\n')
+
+    def edit_game_event_func(self):
+        referee_id = self.controller.user_id
+        game_id = str(self.game_id_box_edit_2.currentText().split(':')[0])
+        event_id = str(self.game_event_id_box_edit.currentText().split('-')[0])
+        event_type = str(self.event_type_box_edit.currentText())
+        event_des = self.event_dec_text_2.toPlainText()
+        min_in_game = str(self.min_in_game_box_2.value())
+        filled_info = {
+            # all data
+            'referee_id': referee_id,
+            'game_id': game_id,
+            'event_type': event_type,
+            'event_description': event_des,
+            'min_in_game': min_in_game,
+            'event_id': event_id
+        }
+
+        answer = self.controller.edit_event(filled_info)
+        if answer == 'Success':
+            self.controller.success_window('Event edited successfully.\n')
+        elif answer == '':
+            self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
         else:
             self.controller.error_window('Game ID is not correct.\n')
 
 
     def get_on_going_games(self):
-        referee_id = self.controller.user_id
-        filled_info = {
-            'referee_id': referee_id
-        }
-        answer = self.controller.get_on_going_games(filled_info)
+        answer = self.controller.get_on_going_games()
         if answer == '':
             self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
         else:
             return answer
 
     def fill_on_going_games(self, games):
-        for i in games:
+        final_games = []
+        for game in games:
             game_info = ""
-            game_info += games[i].get('game_id')
+            game_info += str(game['game_id'])
             game_info += ": "
-            game_info += games[i].get('home_team')
+            game_info += game['home_team']
             game_info += "_"
-            game_info += games[i].get('away_team')
-            self.game_id_box_add.addItems(game_info)
-            self.game_id_box_edit_2.addItems(game_info)
-            self.on_going_game_list.addItems(game_info)
-            self.game_event_box.addItems(game_info)
+            game_info += game['away_team']
+            final_games.append(game_info)
 
-    def get_game_events(self, game_id):
-        referee_id = self.controller.user_id
+        self.game_id_box_add.addItems(final_games)
+        self.game_id_box_edit_2.addItems(final_games)
+        self.on_going_game_list.addItems(final_games)
+
+    def get_game_events(self):
+
+        game_id = (str(self.game_id_box_add.currentText())).split(':')[0]
 
         filled_info = {
-            'referee_id': referee_id,
             'game_id': game_id
         }
         answer = self.controller.get_game_events(filled_info)
@@ -309,10 +352,12 @@ class RefereeWindow(UserWindow):
             return answer
 
 
-    def fill_events_of_game(self, game_id):
-        all_events_in_game = self.get_game_events(game_id)
+    def fill_events_of_game(self):
+        all_events_in_game = self.get_game_events()
         if all_events_in_game is not None:
+            self.game_event_id_box_edit.clear()
             self.game_event_id_box_edit.addItems(all_events_in_game)
+            all_events_in_game = []
         else:
             self.controller.error_window('No events for this Game ID.\n')
 

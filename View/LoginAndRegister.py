@@ -181,8 +181,8 @@ class LoginAndRegister(QWidget):
         elif answer == '':
             self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
         else:
-            self.controller.set_user_win(answer['user_type'])
             self.controller.user_id = answer['user_name']
+            self.controller.set_user_win(answer['user_type'])
             self.controller.show_user_win()
 
     def register(self):
@@ -207,8 +207,8 @@ class LoginAndRegister(QWidget):
             self.controller.error_window('User with the same username already exists.\n'
                                          'Please try a different username.', 'Register Error')
         else:
-            self.controller.set_user_win(answer['user_type'])
             self.controller.user_id = answer['user_name']
+            self.controller.set_user_win(answer['user_type'])
             self.controller.show_user_win()
 
     @property
