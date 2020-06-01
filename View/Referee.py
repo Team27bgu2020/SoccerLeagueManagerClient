@@ -190,7 +190,7 @@ class RefereeWindow(UserWindow):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.edit_personal_details.setText(_translate("Form", "Edit My Personal Details"))
-        self.personal_games.setText(_translate("Form", "Games in which I am inlaid"))
+        self.personal_games.setText(_translate("Form", "All my Games"))
         self.add_game_event.setText(_translate("Form", "Add Game Event"))
         self.update_game_event.setText(_translate("Form", "Update Games Events"))
         self.on_going_games.setText(_translate("Form", "On Going Games"))
@@ -242,16 +242,20 @@ class RefereeWindow(UserWindow):
         self.game_id_box_edit_2.activated.connect(self.fill_events_of_game)
         self.submit_2.clicked.connect(self.edit_game_event_func)
         self.delete_event_btn.clicked.connect(self.delete_event)
+        self.personal_games.clicked.connect(self.all_my_games_tab)
         pass
 
     def add_game_event_tab(self):
-        self.all_tabs.setCurrentIndex(1)
+        self.Referee.setCurrentIndex(1)
 
     def edit_game_event_tab(self):
-        self.all_tabs.setCurrentIndex(2)
+        self.Referee.setCurrentIndex(2)
 
     def on_going_games_tab(self):
-        self.all_tabs.setCurrentIndex(3)
+        self.Referee.setCurrentIndex(3)
+
+    def all_my_games_tab(self):
+        self.Referee.setCurrentIndex(4)
 
     def delete_event(self):
         event_id = str(self.game_event_id_box_edit.currentText().split('-')[0])
