@@ -175,6 +175,41 @@ class ViewController:
         """ setter for the user window by user type (string) """
         self.user_win = get_user_win(user_type, self)
 
+    def get_on_going_games(self):
+        """ This method sends the server a request to get on going games by referee in the system and receives an answer
+        whether it was successful or not """
+        message = self.new_message('get_on_going_games')
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
+    def add_event(self, ref_info):
+        """ This method sends the server a request to add event by referee in the system and receives an answer
+        whether it was successful or not """
+        message = self.new_message('add_event', ref_info)
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
+    def edit_event(self, ref_info):
+        """ This method sends the server a request to edit event by referee in the system and receives an answer
+        whether it was successful or not """
+        message = self.new_message('edit_event', ref_info)
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
+    def get_game_events(self, ref_info):
+        """ This method sends the server a request to all events in the game in the system and receives an answer
+        whether it was successful or not """
+        message = self.new_message('get_all_game_events', ref_info)
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
+    def delete_event(self, ref_info):
+        """ This method sends the server a request to delete event by referee in the system and receives an answer
+        whether it was successful or not """
+        message = self.new_message('delete_event', ref_info)
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
     def handle_notifications(self, notifications):
         if notifications == 'Error' or not notifications:
             return
