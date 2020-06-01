@@ -1,4 +1,6 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5.QtWidgets import QTableWidgetItem
+
 from View.UserWindow import UserWindow
 
 
@@ -47,6 +49,10 @@ class SystemAdminWindow(UserWindow):
         self.tabWidget.addTab(self.Main, "")
         self.teams = QtWidgets.QWidget()
         self.teams.setObjectName("teams")
+        self.showTeamsBtn = QtWidgets.QPushButton(self.teams)
+        self.showTeamsBtn.setGeometry(QtCore.QRect(30, 380, 75, 23))
+        self.showTeamsBtn.setObjectName("showTeamsBtn")
+        self.showTeamsBtn.setText('Show teams')
         self.teamTable = QtWidgets.QTableWidget(self.teams)
         self.teamTable.setGeometry(QtCore.QRect(30, 30, 256, 321))
         self.teamTable.setStyleSheet("background-color: transparent")
@@ -68,11 +74,15 @@ class SystemAdminWindow(UserWindow):
         self.tabWidget.addTab(self.teams, "")
         self.users = QtWidgets.QWidget()
         self.users.setObjectName("users")
+        self.showUsersBtn = QtWidgets.QPushButton(self.users)
+        self.showUsersBtn.setGeometry(QtCore.QRect(30, 380, 75, 23))
+        self.showUsersBtn.setObjectName("showUsersBtn")
+        self.showUsersBtn.setText('Show users')
         self.usersTable = QtWidgets.QTableWidget(self.users)
         self.usersTable.setGeometry(QtCore.QRect(30, 30, 311, 321))
         self.usersTable.setStyleSheet("background-color: transparent")
         self.usersTable.setObjectName("usersTable")
-        self.usersTable.setColumnCount(3)
+        self.usersTable.setColumnCount(5)
         self.usersTable.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.usersTable.setHorizontalHeaderItem(0, item)
@@ -80,6 +90,10 @@ class SystemAdminWindow(UserWindow):
         self.usersTable.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
         self.usersTable.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.usersTable.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.usersTable.setHorizontalHeaderItem(4, item)
         self.removeUserLbl = QtWidgets.QLabel(self.users)
         self.removeUserLbl.setGeometry(QtCore.QRect(324, 22, 230, 40))
         self.removeUserLbl.setObjectName("removeUserLbl")
@@ -197,11 +211,15 @@ class SystemAdminWindow(UserWindow):
         self.closeTeamBtn_2.setText(_translate("SystemAdmin", "Close Team"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.teams), _translate("SystemAdmin", "Teams"))
         item = self.usersTable.horizontalHeaderItem(0)
-        item.setText(_translate("SystemAdmin", "Username"))
+        item.setText(_translate("SystemAdmin", "User_ID"))
         item = self.usersTable.horizontalHeaderItem(1)
-        item.setText(_translate("SystemAdmin", "Role"))
+        item.setText(_translate("SystemAdmin", "Username"))
         item = self.usersTable.horizontalHeaderItem(2)
         item.setText(_translate("SystemAdmin", "Name"))
+        item = self.usersTable.horizontalHeaderItem(3)
+        item.setText(_translate("SystemAdmin", "Birthday"))
+        item = self.usersTable.horizontalHeaderItem(4)
+        item.setText(_translate("SystemAdmin", "Role"))
         self.removeUserBtn.setText(_translate("SystemAdmin", "Remove User"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.users), _translate("SystemAdmin", "Users"))
         item = self.complaintsTable.horizontalHeaderItem(0)
@@ -228,9 +246,30 @@ class SystemAdminWindow(UserWindow):
 
     def showTeams(self):
         self.tabWidget.setCurrentIndex(1)
+        answer = self.controller.get_teams()
+        row_count = len(answer)
+        column_count = max([len(p) for p in answer])
+        self.teamTable.setRowCount(row_count)
+        self.teamTable.setColumnCount(column_count)
+        self.teamTable.setHorizontalHeaderLabels((list(answer[0].keys())))
+        for row in range(row_count):
+            for column in range(column_count):
+                item = (list(answer[row].values())[column])
+                self.teamTable.setItem(row, column, QTableWidgetItem(item))
+        self.teamTable.resizeColumnsToContents()
 
     def showUsers(self):
         self.tabWidget.setCurrentIndex(2)
+        answer = self.controller.get_users()
+        row_count = len(answer)
+        column_count = max([len(p) for p in answer])
+        self.usersTable.setRowCount(row_count)
+        self.usersTable.setColumnCount(column_count)
+        for row in range(row_count):
+            for column in range(column_count):
+                item = (list(answer[row].values())[column])
+                self.usersTable.setItem(row, column, QTableWidgetItem(item))
+        self.usersTable.resizeColumnsToContents()
 
     def showComplaints(self):
         self.tabWidget.setCurrentIndex(3)
@@ -260,6 +299,8 @@ class SystemAdminWindow(UserWindow):
         self.showLoggerBtn.clicked.connect(self.showLogger)
         self.removeUserBtn.clicked.connect(self.remove_user)
         self.showLogsBtn.clicked.connect(self.showLogger)
+        self.showUsersBtn.clicked.connect(self.showUsers)
+        self.showTeamsBtn.clicked.connect(self.showTeams)
         pass
 
     def remove_user(self):
