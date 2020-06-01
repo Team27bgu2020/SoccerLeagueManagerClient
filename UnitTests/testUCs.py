@@ -25,6 +25,7 @@ class TestUCs(TestCase):
         controller.log_reg_win.click_login()
 
         self.assertTrue(controller.msg.isVisible())
+        self.assertTrue(controller.msg.icon() == QMessageBox.Critical)
         controller.close_popup()
         self.assertFalse(controller.msg.isVisible())
         self.assertTrue(controller.log_reg_win.isVisible())
