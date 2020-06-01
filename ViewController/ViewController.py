@@ -20,6 +20,7 @@ class ViewController:
         self.log_reg_win = LoginAndRegister(self)
         self.user_win = None
         self.client = client
+        self.client.controller = self
         self.user_id = None
 
     def show_login(self):
@@ -33,20 +34,30 @@ class ViewController:
         self.user_win.show()
 
     def error_window(self, message, error_title='Error'):
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Critical)
-        msg.setText(error_title)
-        msg.setInformativeText(message)
-        msg.setWindowTitle(error_title)
-        msg.exec_()
+        self.msg = QMessageBox()
+        self.msg.setIcon(QMessageBox.Critical)
+        self.msg.setText(error_title)
+        self.msg.setInformativeText(message)
+        self.msg.setWindowTitle(error_title)
+        self.msg.show()
+
+    def popup_window(self, message, message_title='New Notification!'):
+        self.msg = QMessageBox()
+        self.msg.setStandardButtons(QMessageBox.Ok)
+        self.msg.setText(message)
+        self.msg.setWindowTitle(message_title)
+        self.msg.show()
 
     def success_window(self, message, success_title='Success'):
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Information)
-        msg.setText(success_title)
-        msg.setInformativeText(message)
-        msg.setWindowTitle(success_title)
-        msg.exec_()
+        self.msg = QMessageBox()
+        self.msg.setIcon(QMessageBox.Information)
+        self.msg.setText(success_title)
+        self.msg.setInformativeText(message)
+        self.msg.setWindowTitle(success_title)
+        self.msg.show()
+
+    def close_popup(self):
+        self.msg.close()
 
     def user_logout(self):
         """ This method logs-out user from system and shows him the login-register window"""
@@ -140,6 +151,18 @@ class ViewController:
         answer = self.client.send_to_server(json.dumps(message))
         return json.loads(answer)
 
+    def add_league(self, league_info):
+        """ This method sends the server new league information and gets from the server the relevant answer """
+        message = self.new_message('add_league', league_info)
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
+    def get_policies(self):
+        """ This method sends the server new league information and gets from the server the relevant answer """
+        message = self.new_message('get_policies')
+        answer = self.client.send_to_server(json.dumps(message))
+        return json.loads(answer)
+
     def new_message(self, message_type, data=None):
         """ This method returns a new message in the relevant format """
         return {
@@ -187,7 +210,15 @@ class ViewController:
         answer = self.client.send_to_server(json.dumps(message))
         return json.loads(answer)
 
+    def handle_notifications(self, notifications):
+        if notifications == 'Error' or not notifications:
+            return
+        else:
+            for notification in notifications:
+                self.popup_window(notification)
 
+    def close(self):
+        self.close()
 
     @property
     def user_win(self):
@@ -220,6 +251,14 @@ class ViewController:
     @user_id.setter
     def user_id(self, user_id):
         self.__user_id = user_id
+
+    @property
+    def msg(self):
+        return self.__msg
+
+    @msg.setter
+    def msg(self, msg):
+        self.__msg = msg
 
 
 def get_user_win(user_type, controller):
