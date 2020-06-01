@@ -153,7 +153,16 @@ class TeamOwnerWindow(UserWindow):
         self.dialog.createTeamBtn.setObjectName("TeamNameLbl")
         self.dialog.createTeamBtn.setText('Create team')
         self.dialog.createTeamBtn.clicked.connect(self.new_team)
-        self.dialog.exec_()
+        self.dialog.show()
+
+    def close_open_team_dialog(self):
+        self.dialog.close()
+
+    def click_create_team(self):
+        self.dialog.createTeamBtn.click()
+
+    def set_team_name(self, team_name):
+        self.dialog.TeamNameLineEdit.setText(team_name)
 
     def new_team(self):
         filled_info = {
@@ -168,3 +177,4 @@ class TeamOwnerWindow(UserWindow):
             self.controller.error_window('The Server is not responding\nPlease try again later...', 'Connection Error')
         else:
             self.controller.success_window('Team added successfully.\n')
+            self.close_open_team_dialog()
