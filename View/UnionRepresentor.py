@@ -495,15 +495,36 @@ class UnionRepresentorWindow(UserWindow):
         self.savePointsPolicyBtn.clicked.connect(self.addPointsPolicy)
         self.saveGamePolicyBtn.clicked.connect(self.addGamePolicy)
         self.saveBudgetPolicyBtn.clicked.connect(self.addBudgetPolicy)
-        self.policiesBtn.clicked.connect(self.showPolicies)
+        self.policiesBtn.clicked.connect(self.display_policies)
+
         self.showRefereesBtn.clicked.connect(self.showRefs)
         self.assignBudgetPolicyBtn.clicked.connect(lambda: self.showPolicies('Budget'))
         self.assignPointPolicyBtn.clicked.connect(lambda: self.showPolicies('Points'))
         self.assignGamePolicyBtn.clicked.connect(lambda: self.showPolicies('Games'))
         pass
 
-    def get_policies(self):
-        policies = self.controller.get_policies()
+
+    def save_game_policy(self):
+        self.saveGamePolicyBtn.click()
+
+    def save_points_policy(self):
+        self.savePointsPolicyBtn.click()
+
+    def save_budget_policy(self):
+        self.saveBudgetPolicyBtn.click()
+
+    def set_game_policy(self, games_num, games_per_week, stadium_combination):
+        self.gamesNumSpinBox.setText(str(games_num))
+        self.gamesPerWeekSpinBox.setText(str(games_per_week))
+        self.stadiumComboBox.setCurrentIndex(stadium_combination)
+
+    def set_budget_policy(self, budget):
+        self.minBudgetLineEdit.setText(str(budget))
+
+    def set_points_policy(self, win, tie, lose):
+        self.winPointsSpinBox.setText(str(win))
+        self.drawPointsSpinBox.setText(str(tie))
+        self.losePointsSpinBox.setText(str(lose))
 
     def add_ref(self):
         filled_info = {
@@ -607,7 +628,7 @@ class UnionRepresentorWindow(UserWindow):
     def showUnionBudget(self):
         self.tabWidget.setCurrentIndex(5)
 
-    def showPolicies(self):
+    def display_policies(self):
         self.tabWidget.setCurrentIndex(6)
 
     def policy_ans_check(self, answer):

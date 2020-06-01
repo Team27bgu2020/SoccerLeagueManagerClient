@@ -6,6 +6,7 @@ import sys
 
 from View.UnionRepresentor import UnionRepresentorWindow
 from View.TeamOwner import TeamOwnerWindow
+from View.Referee import RefereeWindow
 
 
 class TestUCs(TestCase):
@@ -44,7 +45,7 @@ class TestUCs(TestCase):
         controller.show_user_win()
         self.assertTrue(controller.user_win.isVisible())
         # test - create new points policy UC
-        controller.user_win.showPolicies()
+        controller.user_win.display_policies()
         controller.user_win.set_points_policy(10, 0, 10)
         controller.user_win.save_points_policy()
         self.assertTrue(controller.msg.isVisible())
@@ -108,14 +109,27 @@ class TestUCs(TestCase):
         controller.close_popup()
         controller.user_win.close_open_team_dialog()
 
-    # def test_manage_game(self):
-    #     """ test - manage game UC """
-    #     server_address = ('localhost', 10000)
-    #     app = QApplication(sys.argv)
-    #     controller = ViewController(Client(server_address))
-    #     controller.user_id = 'dor'
-    #     controller.user_win = TeamOwnerWindow(controller)
-    #     controller.show_user_win()
+    def test_manage_game(self):
+        """ test - manage game UC """
+        server_address = ('localhost', 10000)
+        app = QApplication(sys.argv)
+        controller = ViewController(Client(server_address))
+        controller.user_id = 'oscar'
+        controller.user_win = RefereeWindow(controller)
+        controller.show_user_win()
+
+        # test - create new game event
+        self.assertTrue(controller.user_win.isVisible())
+        controller.user_win.click_create_game_event()
+        self.assertTrue(controller.msg.isVisible())
+        self.assertTrue(controller.msg.icon() == QMessageBox.Information)
+        controller.close_popup()
+        # test - edit new game event
+        controller.user_win.edit_game_event(0, 0, 0, 'update', 12)
+        controller.user_win.click_edit_game_event()
+        self.assertTrue(controller.msg.icon() == QMessageBox.Information)
+        controller.close_popup()
+
 
 
 
