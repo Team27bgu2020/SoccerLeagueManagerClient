@@ -214,8 +214,12 @@ class ViewController:
         if notifications == 'Error' or not notifications:
             return
         else:
-            for notification in notifications:
-                self.popup_window(notification)
+            notification_message = 'Notifications:\n\n'
+            notification_counter = 1
+            for notification in notifications['user_notifications']:
+                notification_message += str(notification_counter) + '. ' + notification + '\n'
+                notification_counter += 1
+            self.popup_window(notification_message)
 
     def close(self):
         self.close()

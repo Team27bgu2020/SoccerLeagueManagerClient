@@ -177,6 +177,7 @@ class LoginAndRegister(QWidget):
             'user_name': self.usernameLineEdit.text(),
             'password': self.passwordLineEdit.text()
         }
+        self.controller.user_id = self.usernameLineEdit.text()
         answer = self.controller.user_login(filled_info)
         if answer == 'Error':
             self.controller.error_window('The username or password is incorrect please try again', 'Login Error')
