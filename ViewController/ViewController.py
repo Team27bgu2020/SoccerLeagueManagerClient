@@ -216,7 +216,7 @@ class ViewController:
         else:
             notification_message = 'Notifications:\n\n'
             notification_counter = 1
-            for notification in notifications['user_notifications']:
+            for notification in notifications:
                 notification_message += str(notification_counter) + '. ' + notification + '\n'
                 notification_counter += 1
             self.popup_window(notification_message)
